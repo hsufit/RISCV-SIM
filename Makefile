@@ -8,11 +8,11 @@ export LD_LIBRARY_PATH=$(SYSTEMC_HOME)/lib-linux64
 SRC=main
 APP=hello
 
-all:
-	g++ -o $(APP) $(addsuffix .cpp, $(SRC)) $(LIB_DIR) $(INC_DIR) $(LIB) -std=c++14
+hello: $(addsuffix .cpp, $(SRC))
+	g++ -o $(APP) $(^) $(LIB_DIR) $(INC_DIR) $(LIB) -std=c++14
 
 clean:
 	rm -rf $(APP)
 
-run:
+run: $(APP)
 	./$(APP)
