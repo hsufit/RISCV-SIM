@@ -5,9 +5,9 @@
 
 int sc_main(int argc,char** argv){
 	
-        HELLO hello("hello");
+        CPU cpu("cpu");
 	MOON moon("moon");
-	hello.moon_access_socket.bind(moon.moon_access_socket);
+	cpu.moon_access_socket.bind(moon.moon_access_socket);
 	sc_core::sc_start();
         return 0;
 }
