@@ -15,5 +15,8 @@ hello: $(addsuffix .cpp, $(SRC)) $(addsuffix .h, $(HEADERS))
 clean:
 	rm -rf $(APP)
 
+format:
+	astyle --style=linux --indent=tab --indent-switches --suffix=none *.cpp *.h
+
 run: $(APP)
 	./$(APP)
