@@ -10,7 +10,7 @@ public:
 		SC_THREAD(hello_thread);
         }
 
-	tlm_utils::simple_initiator_socket<CPU> moon_access_socket;
+	tlm_utils::simple_initiator_socket<CPU> memory_socket;
 private:
 	sc_core::sc_time  delay = sc_core::sc_time(1, sc_core::SC_NS);
 	uint32_t pc = 0;
@@ -38,7 +38,7 @@ private:
 		trans.set_address(addr);
 		sc_core::sc_time delay = sc_core::SC_ZERO_TIME;
 
-		moon_access_socket->b_transport(trans, delay);
+		memory_socket->b_transport(trans, delay);
 		std::cout << "time " << sc_core::sc_time_stamp() << ":" << "hello received!!" << data << std::endl;
 
 		pc++;

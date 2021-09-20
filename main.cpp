@@ -7,7 +7,7 @@ int sc_main(int argc,char** argv){
 	
         CPU cpu("cpu");
 	MEMORY memory("moon");
-	cpu.moon_access_socket.bind(memory.moon_access_socket);
+	cpu.memory_socket.bind(memory.memory_socket);
 	sc_core::sc_start();
         return 0;
 }

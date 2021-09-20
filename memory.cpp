@@ -1,7 +1,7 @@
 #include "memory.h"
 
 MEMORY::MEMORY(sc_module_name name) : sc_module(name){
-	moon_access_socket.register_b_transport(this, &MEMORY::b_transport);
+	memory_socket.register_b_transport(this, &MEMORY::b_transport);
 }
 
 void MEMORY::b_transport(tlm::tlm_generic_payload &trans, sc_core::sc_time &delay){
