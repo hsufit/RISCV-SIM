@@ -5,11 +5,11 @@
 #include "tlm_utils/simple_initiator_socket.h"
 #include "tlm_utils/simple_target_socket.h"
 
-class MOON : public sc_module{
+class MEMORY : public sc_module{
 public:
-	MOON(sc_module_name name);
+	MEMORY(sc_module_name name);
 	
-	tlm_utils::simple_target_socket<MOON> moon_access_socket;
+	tlm_utils::simple_target_socket<MEMORY> moon_access_socket;
 private:
 	void b_transport(tlm::tlm_generic_payload &trans, sc_core::sc_time &delay);
 

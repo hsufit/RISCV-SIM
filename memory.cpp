@@ -1,10 +1,10 @@
 #include "memory.h"
 
-MOON::MOON(sc_module_name name) : sc_module(name){
-	moon_access_socket.register_b_transport(this, &MOON::b_transport);
+MEMORY::MEMORY(sc_module_name name) : sc_module(name){
+	moon_access_socket.register_b_transport(this, &MEMORY::b_transport);
 }
 
-void MOON::b_transport(tlm::tlm_generic_payload &trans, sc_core::sc_time &delay){
+void MEMORY::b_transport(tlm::tlm_generic_payload &trans, sc_core::sc_time &delay){
 	delay = sc_core::SC_ZERO_TIME;
 	tlm::tlm_command cmd = trans.get_command();
 	sc_dt::uint64 adr = trans.get_address();
