@@ -5,42 +5,13 @@
 
 class CPU : public sc_module{ 
 public: 
-        CPU(sc_module_name name) : sc_module(name){ 
-		SC_HAS_PROCESS(CPU);
-		SC_THREAD(hello_thread);
-        }
+	CPU(sc_module_name name);
 
 	tlm_utils::simple_initiator_socket<CPU> memory_socket;
 private:
+	void hello_thread(void);
+	void step();
+
 	sc_core::sc_time  delay = sc_core::sc_time(1, sc_core::SC_NS);
 	uint32_t pc = 0;
-
-
-	void hello_thread(void)
-	{
-		for(int i = 0; i < 30; i++)
-		{
-			step();
-			wait(delay);
-		}
-	}
-
-	void step()
-	{
-		char data;
-		sc_dt::uint64 addr = pc;
-		int size = 1;
-		tlm::tlm_generic_payload trans;
-		trans.set_command(tlm::TLM_READ_COMMAND);
-		trans.set_data_ptr(reinterpret_cast<unsigned char*>(&data));
-		trans.set_data_length(size);
-		trans.set_response_status(tlm::TLM_INCOMPLETE_RESPONSE);
-		trans.set_address(addr);
-		sc_core::sc_time delay = sc_core::SC_ZERO_TIME;
-
-		memory_socket->b_transport(trans, delay);
-		std::cout << "time " << sc_core::sc_time_stamp() << ":" << "hello received!!" << data << std::endl;
-
-		pc++;
-	}
 };
