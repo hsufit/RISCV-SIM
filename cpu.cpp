@@ -30,3 +30,8 @@ void CPU::step()
 	std::cout << "time " << sc_core::sc_time_stamp() << ":" << "hello received!!" << data << std::endl;
 	pc++;
 }
+
+void CPU::set_register_file(const std::shared_ptr<REGISTER_INTERFACE> &instance)
+{
+	register_file = instance;
+}
