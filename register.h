@@ -10,7 +10,7 @@ class REGISTER: public REGISTER_INTERFACE
 public:
 	virtual void set_value_integer(unsigned int register_index, int32_t value) override;
 	virtual int32_t get_value_integer(unsigned int register_index) override;
-	
+
 	virtual void set_pc(uint32_t value) override;
 	virtual uint32_t get_pc() override;
 

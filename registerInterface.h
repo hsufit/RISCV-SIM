@@ -75,7 +75,7 @@ public:
 
 	virtual void set_value_integer(unsigned int register_index, int32_t value) = 0;
 	virtual int32_t get_value_integer(unsigned int register_index) = 0;
-	
+
 	virtual void set_pc(uint32_t value) = 0;
 	virtual uint32_t get_pc() = 0;
 };
