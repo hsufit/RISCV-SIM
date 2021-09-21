@@ -7,6 +7,8 @@
 
 #include "registerInterface.h"
 
+#ifndef INC_CPU_H_
+#define INC_CPU_H_
 class CPU : public sc_module
 {
 public:
@@ -23,3 +25,4 @@ private:
 
 	std::shared_ptr<REGISTER_INTERFACE> register_file;
 };
+#endif //INC_CPU_H_

@@ -5,6 +5,8 @@
 #include "tlm_utils/simple_initiator_socket.h"
 #include "tlm_utils/simple_target_socket.h"
 
+#ifndef INC_MEMORY_H_
+#define INC_MEMORY_H_
 class MEMORY : public sc_module
 {
 public:
@@ -21,3 +23,4 @@ private:
 		'9', '7', '9', '3', '2',
 		'3', '8', '4', '6', '2'};
 };
+#endif //INC_MEMORY_H_

@@ -3,6 +3,8 @@
 
 #include "registerInterface.h"
 
+#ifndef INC_REGISTER_H_
+#define INC_REGISTER_H_
 class REGISTER: public REGISTER_INTERFACE
 {
 public:
@@ -16,3 +18,4 @@ private:
 	std::array<int32_t, 32> register_bank_integer;
 	uint32_t register_pc;
 };
+#endif //INC_REGISTER_H_
