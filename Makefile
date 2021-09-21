@@ -1,3 +1,6 @@
+CXX = g++
+CXXFLAGS = -std=c++14
+
 LIB_DIR=-L/usr/local/systemc-2.3.3/lib-linux64
 INC_DIR=-I/usr/local/systemc-2.3.3/include
 LIB=-lsystemc
@@ -9,11 +12,14 @@ HEADERS=cpu memory register registerInterface
 SRC=main cpu memory register
 APP=simulator
 
-	g++ -o $(APP) $(^) $(LIB_DIR) $(INC_DIR) $(LIB) -std=c++14
-$(APP): $(addsuffix .cpp, $(SRC)) $(addsuffix .h, $(HEADERS)) 
+$(APP): $(addsuffix .o, $(SRC))
+	$(CXX) -o $(APP) $(^) $(LIB_DIR) $(INC_DIR) $(LIB) $(CXXFLAGS)
 
 clean:
 	rm -rf $(APP)
+
+%.o: %.cpp Makefile
+	$(CXX) -c $(CXXFLAGS) $(<) $(LIB_DIR) $(INC_DIR) $(LIB) -o $@
 
 format:
 	astyle --style=linux --indent=tab --indent-switches --suffix=none *.cpp *.h
