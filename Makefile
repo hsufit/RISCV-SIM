@@ -7,10 +7,10 @@ export LD_LIBRARY_PATH=$(SYSTEMC_HOME)/lib-linux64
 
 HEADERS=cpu memory register registerInterface
 SRC=main cpu memory register
-APP=hello
+APP=simulator
 
-hello: $(addsuffix .cpp, $(SRC)) $(addsuffix .h, $(HEADERS))
 	g++ -o $(APP) $(^) $(LIB_DIR) $(INC_DIR) $(LIB) -std=c++14
+$(APP): $(addsuffix .cpp, $(SRC)) $(addsuffix .h, $(HEADERS)) 
 
 clean:
 	rm -rf $(APP)
