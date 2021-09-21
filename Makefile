@@ -19,7 +19,7 @@ clean:
 	rm -rf $(APP)
 
 %.o: %.cpp Makefile
-	$(CXX) -c $(CXXFLAGS) $(<) $(LIB_DIR) $(INC_DIR) $(LIB) -o $@
+	$(CXX) -c $(CXXFLAGS) $(<) $(INC_DIR) -o $@
 
 format:
 	astyle --style=linux --indent=tab --indent-switches --suffix=none *.cpp *.h
