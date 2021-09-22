@@ -17,7 +17,6 @@ public:
 	void set_register_file(const std::shared_ptr<REGISTER_INTERFACE> &instance);
 	void set_address_space(const std::shared_ptr<ADDRESS_SPACE_INTERFACE> &instance);
 
-	tlm_utils::simple_initiator_socket<CPU> memory_socket;
 private:
 	void hello_thread(void);
 	void step();
