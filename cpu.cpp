@@ -35,3 +35,7 @@ void CPU::set_register_file(const std::shared_ptr<REGISTER_INTERFACE> &instance)
 {
 	register_file = instance;
 }
+void CPU::set_address_space(const std::shared_ptr<ADDRESS_SPACE_INTERFACE> &instance)
+{
+	address_space = instance;
+}
