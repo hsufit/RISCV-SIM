@@ -15,6 +15,7 @@ $(APP): $(addsuffix .o, $(SRC))
 	$(CXX) -o $(APP) $(^) $(LIB_DIR) $(INC_DIR) $(LIB) $(CXXFLAGS)
 
 clean:
+	rm -rf ./*.o
 	rm -rf $(APP)
 
 %.o: %.cpp %.h
