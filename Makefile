@@ -17,7 +17,7 @@ $(APP): $(addsuffix .o, $(SRC))
 clean:
 	rm -rf $(APP)
 
-%.o: %.cpp Makefile
+%.o: %.cpp %.h
 	$(CXX) -c $(CXXFLAGS) $(<) $(INC_DIR) -o $@
 
 format:
