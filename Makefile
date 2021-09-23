@@ -18,6 +18,9 @@ clean:
 	rm -rf ./*.o
 	rm -rf $(APP)
 
+main.o: main.cpp
+	$(CXX) -c $(CXXFLAGS) $(<) $(INC_DIR) -o $@
+
 %.o: %.cpp %.h
 	$(CXX) -c $(CXXFLAGS) $(<) $(INC_DIR) -o $@
 
