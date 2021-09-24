@@ -8,7 +8,8 @@ LIB=-lsystemc
 export SYSTEMC_HOME=/usr/local/systemc-2.3.3
 export LD_LIBRARY_PATH=$(SYSTEMC_HOME)/lib-linux64
 
-SRC=main cpu memory register bus instructionDecoder
+INC_INTERFACE=addressSpaceInterface registerInterface instructionDecoderInterface executorInterface
+SRC=main cpu memory register bus instructionDecoder executor
 APP=simulator
 
 $(APP): $(addsuffix .o, $(SRC))
@@ -21,7 +22,7 @@ clean:
 main.o: main.cpp
 	$(CXX) -c $(CXXFLAGS) $(<) $(INC_DIR) -o $@
 
-%.o: %.cpp %.h
+%.o: %.cpp %.h $(addsuffix .h,$(INC_INTERFACE))
 	$(CXX) -c $(CXXFLAGS) $(<) $(INC_DIR) -o $@
 
 format:

@@ -8,6 +8,7 @@
 #include "registerInterface.h"
 #include "addressSpaceInterface.h"
 #include "instructionDecoderInterface.h"
+#include "executorInterface.h"
 
 #ifndef INC_CPU_H_
 #define INC_CPU_H_
@@ -18,6 +19,7 @@ public:
 	void set_register_file(const std::shared_ptr<REGISTER_INTERFACE> &instance);
 	void set_address_space(const std::shared_ptr<ADDRESS_SPACE_INTERFACE> &instance);
 	void set_instruction_decoder(const std::shared_ptr<INSTRUCTION_DECODER_INTERFACE> &instance);
+	void set_executor(const std::shared_ptr<EXECUTOR_INTERFACE> &instance);
 
 private:
 	void hello_thread(void);
@@ -29,5 +31,6 @@ private:
 	std::shared_ptr<REGISTER_INTERFACE> register_file;
 	std::shared_ptr<ADDRESS_SPACE_INTERFACE> address_space;
 	std::shared_ptr<INSTRUCTION_DECODER_INTERFACE> instruction_decoder;
+	std::shared_ptr<EXECUTOR_INTERFACE> executor;
 };
 #endif //INC_CPU_H_
