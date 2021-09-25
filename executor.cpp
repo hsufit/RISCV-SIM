@@ -26,7 +26,7 @@ void EXECUTOR::execute()
 			}
 			break;
 		default:
-			std::cout << "INVALID: Func3 in IMM_OP :" << instruction_decoder->get_func3() << std::endl;
+			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
 	}
 }
