@@ -17,4 +17,30 @@ void EXECUTOR::execute()
 		std::cout << "rd: " << rd << std::endl;
 		std::cout << "value: " << value << std::endl;
 	}
+	if(instruction_decoder->get_opcode() == INSTRUCTION_DECODER_INTERFACE::IMM_OP &&
+	   instruction_decoder->get_func3() == INSTRUCTION_DECODER_INTERFACE::ANDI_FN3) {
+		auto rs1 = instruction_decoder->get_rs1();
+		auto rd = instruction_decoder->get_rd();
+
+		auto value = register_file->get_value_integer(rs1) & instruction_decoder->get_imm(31, 20);
+		register_file->set_value_integer(rd, value);
+	}
+
+	if(instruction_decoder->get_opcode() == INSTRUCTION_DECODER_INTERFACE::IMM_OP &&
+	   instruction_decoder->get_func3() == INSTRUCTION_DECODER_INTERFACE::ORI_FN3) {
+		auto rs1 = instruction_decoder->get_rs1();
+		auto rd = instruction_decoder->get_rd();
+
+		auto value = register_file->get_value_integer(rs1) | instruction_decoder->get_imm(31, 20);
+		register_file->set_value_integer(rd, value);
+	}
+
+	if(instruction_decoder->get_opcode() == INSTRUCTION_DECODER_INTERFACE::IMM_OP &&
+	   instruction_decoder->get_func3() == INSTRUCTION_DECODER_INTERFACE::XORI_FN3) {
+		auto rs1 = instruction_decoder->get_rs1();
+		auto rd = instruction_decoder->get_rd();
+
+		auto value = register_file->get_value_integer(rs1) ^ instruction_decoder->get_imm(31, 20);
+		register_file->set_value_integer(rd, value);
+	}
 }
