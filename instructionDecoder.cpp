@@ -30,8 +30,8 @@ uint32_t INSTRUCTION_DECODER::get_rd()
 	return instruction_value.range(11, 7);
 }
 
-uint32_t INSTRUCTION_DECODER::get_imm(uint32_t end, uint32_t start)
+int32_t INSTRUCTION_DECODER::get_imm(uint32_t end, uint32_t start)
 {
-	return instruction_value.range(end, start);
+	return sc_dt::sc_int<32>(instruction_value) << (31-end) >> start;
 }
 

@@ -45,7 +45,7 @@ public:
 	virtual uint32_t get_rs2() = 0;
 	virtual uint32_t get_rd() = 0;
 
-	virtual uint32_t get_imm(uint32_t start, uint32_t end) = 0;
+	virtual int32_t get_imm(uint32_t start, uint32_t end) = 0;
 
 protected:
 	sc_dt::sc_uint<32> instruction_value;

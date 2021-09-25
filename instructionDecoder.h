@@ -13,6 +13,6 @@ public:
 	virtual uint32_t get_rs2() override;
 	virtual uint32_t get_rd() override;
 
-	virtual uint32_t get_imm(uint32_t start, uint32_t end) override;
+	virtual int32_t get_imm(uint32_t start, uint32_t end) override;
 };
 #endif //INSTRUCTION_INTERFAC
