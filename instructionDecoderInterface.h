@@ -13,7 +13,7 @@ public:
 	};
 
 	enum Opcode {
-		OP_IMM = 0b0010011,
+		IMM_OP = 0b0010011,
 	};
 
 	enum Func3 {

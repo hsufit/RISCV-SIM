@@ -4,7 +4,7 @@
 
 void EXECUTOR::execute()
 {
-	if(instruction_decoder->get_opcode() == INSTRUCTION_DECODER_INTERFACE::OP_IMM &&
+	if(instruction_decoder->get_opcode() == INSTRUCTION_DECODER_INTERFACE::IMM_OP &&
 	   instruction_decoder->get_func3() == INSTRUCTION_DECODER_INTERFACE::ADDI_FN3) {
 		auto rs1 = instruction_decoder->get_rs1();
 		auto rd = instruction_decoder->get_rd();
