@@ -19,6 +19,9 @@ public:
 	enum Func3 {
 		//IMM_OP
 		ADDI_FN3 = 0b000,
+		ANDI_FN3 = 0b111,
+		ORI_FN3 = 0b110,
+		XORI_FN3 = 0b100,
 	};
 
 	void set_instruction(uint32_t value)
