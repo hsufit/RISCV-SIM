@@ -16,6 +16,11 @@ public:
 		OP_IMM = 0b0010011,
 	};
 
+	enum Func3 {
+		//IMM_OP
+		ADDI_FN3 = 0b000,
+	};
+
 	void set_instruction(uint32_t value)
 	{
 		instruction_value = sc_dt::sc_uint<32>(value);
