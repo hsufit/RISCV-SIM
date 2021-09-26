@@ -33,41 +33,41 @@ void EXECUTOR::execute()
 
 void EXECUTOR::ADDI_E()
 {
-						auto rs1 = instruction_decoder->get_rs1();
-						auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
 
-						auto value = register_file->get_value_integer(rs1) + instruction_decoder->get_imm(31, 20);
-						register_file->set_value_integer(rd, value);
-						//TODO: just for test, move these to decoder and logger in future
-						std::cout << "ADDI" << std::endl;
-						std::cout << "rs1: " << rs1 << std::endl;
-						std::cout << "rd: " << rd << std::endl;
-						std::cout << "value: " << value << std::endl;
+	auto value = register_file->get_value_integer(rs1) + instruction_decoder->get_imm(31, 20);
+	register_file->set_value_integer(rd, value);
+	//TODO: just for test, move these to decoder and logger in future
+	std::cout << "ADDI" << std::endl;
+	std::cout << "rs1: " << rs1 << std::endl;
+	std::cout << "rd: " << rd << std::endl;
+	std::cout << "value: " << value << std::endl;
 }
 
 void EXECUTOR::ANDI_E()
 {
-						auto rs1 = instruction_decoder->get_rs1();
-						auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
 
-						auto value = register_file->get_value_integer(rs1) & instruction_decoder->get_imm(31, 20);
-						register_file->set_value_integer(rd, value);
+	auto value = register_file->get_value_integer(rs1) & instruction_decoder->get_imm(31, 20);
+	register_file->set_value_integer(rd, value);
 }
 
 void EXECUTOR::ORI_E()
 {
-						auto rs1 = instruction_decoder->get_rs1();
-						auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
 
-						auto value = register_file->get_value_integer(rs1) | instruction_decoder->get_imm(31, 20);
-						register_file->set_value_integer(rd, value);
+	auto value = register_file->get_value_integer(rs1) | instruction_decoder->get_imm(31, 20);
+	register_file->set_value_integer(rd, value);
 }
 
 void EXECUTOR::XORI_E()
 {
-						auto rs1 = instruction_decoder->get_rs1();
-						auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
 
-						auto value = register_file->get_value_integer(rs1) ^ instruction_decoder->get_imm(31, 20);
-						register_file->set_value_integer(rd, value);
+	auto value = register_file->get_value_integer(rs1) ^ instruction_decoder->get_imm(31, 20);
+	register_file->set_value_integer(rd, value);
 }
