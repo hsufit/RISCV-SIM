@@ -11,5 +11,7 @@ private:
 	void ANDI_E();
 	void ORI_E();
 	void XORI_E();
+	void SLTI_E();
+	void SLTIU_E();
 };
 #endif //INC_EXECUTOR_H_

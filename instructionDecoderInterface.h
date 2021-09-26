@@ -22,6 +22,8 @@ public:
 		ANDI_FN3 = 0b111,
 		ORI_FN3 = 0b110,
 		XORI_FN3 = 0b100,
+		SLTI_FN3 = 0b010,
+		SLTIU_FN3 = 0b011,
 	};
 
 	void set_instruction(uint32_t value)
