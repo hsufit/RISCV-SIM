@@ -24,6 +24,10 @@ public:
 		XORI_FN3 = 0b100,
 		SLTI_FN3 = 0b010,
 		SLTIU_FN3 = 0b011,
+		SLLI_FN3 = 0b001,
+		SRLI_FN3 = 0b101,
+		SRAI_FN3 = 0b101,
+
 	};
 
 	void set_instruction(uint32_t value)

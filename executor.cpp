@@ -26,6 +26,19 @@ void EXECUTOR::execute()
 				case INSTRUCTION_DECODER_INTERFACE::SLTIU_FN3:
 					SLTIU_E();
 					break;
+				case INSTRUCTION_DECODER_INTERFACE::SLLI_FN3:
+					SLLI_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::SRLI_FN3://same as INSTRUCTION_DECODER_INTERFACE::SRAI_FN3
+					if(instruction_decoder->get_imm(30, 30) == 0)
+					{
+						SRLI_E();
+					}
+					else
+					{
+						SRAI_E();
+					}
+					break;
 				default:
 					std::cout << "INVALID: Func3 in IMM_OP :" << instruction_decoder->get_func3() << std::endl;
 					break;
@@ -101,6 +114,46 @@ void EXECUTOR::SLTIU_E()
 	register_file->set_value_integer(rd, value);
 	//TODO: just for test, move these to decoder and logger in future
 	std::cout << "SLTIU" << std::endl;
+	std::cout << "rs1: " << rs1 << std::endl;
+	std::cout << "rd: " << rd << std::endl;
+	std::cout << "value: " << value << std::endl;
+}
+
+void EXECUTOR::SLLI_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
+
+	auto value = register_file->get_value_integer(rs1) << (uint32_t) instruction_decoder->get_imm(24, 20);
+	register_file->set_value_integer(rd, value);
+	//TODO: just for test, move these to decoder and logger in future
+	std::cout << "SLLI" << std::endl;
+	std::cout << "rs1: " << rs1 << std::endl;
+	std::cout << "rd: " << rd << std::endl;
+	std::cout << "value: " << value << std::endl;
+}
+void EXECUTOR::SRLI_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
+
+	auto value = (uint32_t) register_file->get_value_integer(rs1) >> (uint32_t) instruction_decoder->get_imm(24, 20);
+	register_file->set_value_integer(rd, value);
+	//TODO: just for test, move these to decoder and logger in future
+	std::cout << "SRLI" << std::endl;
+	std::cout << "rs1: " << rs1 << std::endl;
+	std::cout << "rd: " << rd << std::endl;
+	std::cout << "value: " << value << std::endl;
+}
+void EXECUTOR::SRAI_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
+
+	auto value = register_file->get_value_integer(rs1) >> (uint32_t) instruction_decoder->get_imm(24, 20);
+	register_file->set_value_integer(rd, value);
+	//TODO: just for test, move these to decoder and logger in future
+	std::cout << "SRAI" << std::endl;
 	std::cout << "rs1: " << rs1 << std::endl;
 	std::cout << "rd: " << rd << std::endl;
 	std::cout << "value: " << value << std::endl;

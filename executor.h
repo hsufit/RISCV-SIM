@@ -13,5 +13,8 @@ private:
 	void XORI_E();
 	void SLTI_E();
 	void SLTIU_E();
+	void SLLI_E();
+	void SRLI_E();
+	void SRAI_E();
 };
 #endif //INC_EXECUTOR_H_
