@@ -32,6 +32,6 @@ uint32_t INSTRUCTION_DECODER::get_rd()
 
 int32_t INSTRUCTION_DECODER::get_imm(uint32_t end, uint32_t start)
 {
-	return sc_dt::sc_int<32>(instruction_value) << (31-end) >> start;
+	return sc_dt::sc_int<32>(instruction_value) << (31-end) >> (31 - end + start);
 }
 
