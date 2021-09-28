@@ -4,6 +4,7 @@
 
 void EXECUTOR::execute()
 {
+	new_pc = register_file->get_pc() + 4;
 
 	switch (instruction_decoder->get_opcode()) {
 		case INSTRUCTION_DECODER_INTERFACE::IMM_OP:
@@ -48,6 +49,8 @@ void EXECUTOR::execute()
 			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
 	}
+
+	register_file->set_pc(new_pc);
 }
 
 void EXECUTOR::ADDI_E()

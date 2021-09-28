@@ -16,5 +16,7 @@ private:
 	void SLLI_E();
 	void SRLI_E();
 	void SRAI_E();
+
+	uint32_t new_pc; //write back to register when execute finished
 };
 #endif //INC_EXECUTOR_H_

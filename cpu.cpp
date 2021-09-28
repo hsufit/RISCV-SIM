@@ -16,6 +16,7 @@ void CPU::hello_thread(void)
 
 void CPU::step()
 {
+
 //       char data = address_space->read(pc, 1);
 //       std::cout << "time " << sc_core::sc_time_stamp() << ":" << "hello received!!" << data << std::endl;
 //       TODO:fake instructions, move to memory
@@ -30,7 +31,7 @@ void CPU::step()
 		0b0100000'00001'00011'101'00101'0010011, //SRAI x5 = x2 >> 1
 	};
 
-	instruction_decoder->set_instruction(fakeInstructionMemory[pc]);
+	instruction_decoder->set_instruction(fakeInstructionMemory[register_file->get_pc() / 4]);
 	executor->execute();
 	pc++;
 }
