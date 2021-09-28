@@ -45,6 +45,12 @@ void EXECUTOR::execute()
 					break;
 			}
 			break;
+		case INSTRUCTION_DECODER_INTERFACE::LUI_OP:
+			LUI_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::AUIPC_OP:
+			AUIPC_E();
+			break;
 		default:
 			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
@@ -158,6 +164,28 @@ void EXECUTOR::SRAI_E()
 	//TODO: just for test, move these to decoder and logger in future
 	std::cout << "SRAI" << std::endl;
 	std::cout << "rs1: " << rs1 << std::endl;
+	std::cout << "rd: " << rd << std::endl;
+	std::cout << "value: " << value << std::endl;
+}
+void EXECUTOR::LUI_E()
+{
+	auto rd = instruction_decoder->get_rd();
+
+	auto value = (instruction_decoder->get_imm(31, 12) << 12);
+	register_file->set_value_integer(rd, value);
+	//TODO: just for test, move these to decoder and logger in future
+	std::cout << "LUI" << std::endl;
+	std::cout << "rd: " << rd << std::endl;
+	std::cout << "value: " << value << std::endl;
+}
+void EXECUTOR::AUIPC_E()
+{
+	auto rd = instruction_decoder->get_rd();
+
+	auto value = register_file->get_pc() + (instruction_decoder->get_imm(31, 12) << 12);
+	register_file->set_value_integer(rd, value);
+	//TODO: just for test, move these to decoder and logger in future
+	std::cout << "AUIPC" << std::endl;
 	std::cout << "rd: " << rd << std::endl;
 	std::cout << "value: " << value << std::endl;
 }

@@ -14,6 +14,8 @@ public:
 
 	enum Opcode {
 		IMM_OP = 0b0010011,
+		LUI_OP = 0b0110111,
+		AUIPC_OP = 0b0010111,
 	};
 
 	enum Func3 {

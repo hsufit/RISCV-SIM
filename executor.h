@@ -16,6 +16,8 @@ private:
 	void SLLI_E();
 	void SRLI_E();
 	void SRAI_E();
+	void LUI_E();
+	void AUIPC_E();
 
 	uint32_t new_pc; //write back to register when execute finished
 };
