@@ -8,7 +8,7 @@ CPU::CPU(sc_module_name name) : sc_module(name)
 
 void CPU::hello_thread(void)
 {
-	for(int i = 0; i < 8; i++) {
+	for(int i = 0; i < 10; i++) {
 		step();
 		wait(delay);
 	}
@@ -20,7 +20,7 @@ void CPU::step()
 //       char data = address_space->read(pc, 1);
 //       std::cout << "time " << sc_core::sc_time_stamp() << ":" << "hello received!!" << data << std::endl;
 //       TODO:fake instructions, move to memory
-	auto fakeInstructionMemory = std::array<uint32_t, 8> {
+	auto fakeInstructionMemory = std::array<uint32_t, 10> {
 		0b000000000001'00000'000'00001'0010011, //ADDI x1 = x0 + 1
 		0b111111111111'00001'000'00010'0010011, //ADDI x2 = x1 + (-1)
 		0b000000000000'00000'000'00000'0010011, //NOP
@@ -29,6 +29,8 @@ void CPU::step()
 		0b0000000'11111'00010'001'00011'0010011, //SLLI x3 = x2 << 31
 		0b0000000'00001'00011'101'00100'0010011, //SRLI x4 = x2 >> 1
 		0b0100000'00001'00011'101'00101'0010011, //SRAI x5 = x2 >> 1
+		0b00000000000000000001'00110'0110111, //LUI x6 = 1 << 12
+		0b00000000000000000001'00110'0010111, //AUIPC x6 = pc + (1 << 12)
 	};
 
 	instruction_decoder->set_instruction(fakeInstructionMemory[register_file->get_pc() / 4]);
