@@ -31,12 +31,9 @@ void EXECUTOR::execute()
 					SLLI_E();
 					break;
 				case INSTRUCTION_DECODER_INTERFACE::SRLI_FN3://same as INSTRUCTION_DECODER_INTERFACE::SRAI_FN3
-					if(instruction_decoder->get_imm(30, 30) == 0)
-					{
+					if(instruction_decoder->get_imm(30, 30) == 0) {
 						SRLI_E();
-					}
-					else
-					{
+					} else {
 						SRAI_E();
 					}
 					break;
