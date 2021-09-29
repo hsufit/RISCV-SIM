@@ -16,6 +16,7 @@ public:
 		IMM_OP = 0b0010011,
 		LUI_OP = 0b0110111,
 		AUIPC_OP = 0b0010111,
+		LOAD_OP = 0b0000011,
 	};
 
 	enum Func3 {
@@ -29,6 +30,12 @@ public:
 		SLLI_FN3 = 0b001,
 		SRLI_FN3 = 0b101,
 		SRAI_FN3 = 0b101,
+
+		LB_FN3 = 0b000,
+		LH_FN3 = 0b001,
+		LW_FN3 = 0b010,
+		LBU_FN3 = 0b100,
+		LHU_FN3 = 0b101,
 
 	};
 

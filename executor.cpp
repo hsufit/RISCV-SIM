@@ -48,6 +48,28 @@ void EXECUTOR::execute()
 		case INSTRUCTION_DECODER_INTERFACE::AUIPC_OP:
 			AUIPC_E();
 			break;
+		case INSTRUCTION_DECODER_INTERFACE::LOAD_OP:
+			switch (instruction_decoder->get_func3()) {
+				case INSTRUCTION_DECODER_INTERFACE::LB_FN3:
+					LB_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::LH_FN3:
+					LH_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::LW_FN3:
+					LW_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::LBU_FN3:
+					LBU_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::LHU_FN3:
+					LHU_E();
+					break;
+				default:
+					std::cout << "INVALID: Func3 in LOAD_OP :" << instruction_decoder->get_func3() << std::endl;
+					break;
+			}
+			break;
 		default:
 			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
@@ -138,6 +160,7 @@ void EXECUTOR::SLLI_E()
 	std::cout << "rd: " << rd << std::endl;
 	std::cout << "value: " << value << std::endl;
 }
+
 void EXECUTOR::SRLI_E()
 {
 	auto rs1 = instruction_decoder->get_rs1();
@@ -151,6 +174,7 @@ void EXECUTOR::SRLI_E()
 	std::cout << "rd: " << rd << std::endl;
 	std::cout << "value: " << value << std::endl;
 }
+
 void EXECUTOR::SRAI_E()
 {
 	auto rs1 = instruction_decoder->get_rs1();
@@ -163,6 +187,7 @@ void EXECUTOR::SRAI_E()
 	std::cout << "rs1: " << rs1 << std::endl;
 	std::cout << "rd: " << rd << std::endl;
 	std::cout << "value: " << value << std::endl;
+
 }
 void EXECUTOR::LUI_E()
 {
@@ -175,6 +200,7 @@ void EXECUTOR::LUI_E()
 	std::cout << "rd: " << rd << std::endl;
 	std::cout << "value: " << value << std::endl;
 }
+
 void EXECUTOR::AUIPC_E()
 {
 	auto rd = instruction_decoder->get_rd();
@@ -186,3 +212,63 @@ void EXECUTOR::AUIPC_E()
 	std::cout << "rd: " << rd << std::endl;
 	std::cout << "value: " << value << std::endl;
 }
+
+
+void EXECUTOR::LB_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
+	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
+
+	auto value = address_space->read(addr, 1) << 24 >> 24;
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::LH_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
+	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
+
+	auto value = address_space->read(addr, 2) << 16 >> 16;
+	register_file->set_value_integer(rd, value);
+	std::cout << "LH" << std::endl;
+	std::cout << "rd: " << rd << std::endl;
+	std::cout << "addr: " << addr << std::endl;
+	std::cout << "value: " << value << std::endl;
+}
+
+void EXECUTOR::LW_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
+	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
+
+	auto value = address_space->read(addr, 4);
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::LBU_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
+	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
+
+	auto value = address_space->read(addr, 1);
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::LHU_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
+	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
+
+	auto value = address_space->read(addr, 2);
+	register_file->set_value_integer(rd, value);
+	std::cout << "LHU" << std::endl;
+	std::cout << "rd: " << rd << std::endl;
+	std::cout << "addr: " << addr << std::endl;
+	std::cout << "value: " << value << std::endl;
+}
+

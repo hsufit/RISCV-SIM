@@ -18,6 +18,11 @@ private:
 	void SRAI_E();
 	void LUI_E();
 	void AUIPC_E();
+	void LB_E();
+	void LH_E();
+	void LW_E();
+	void LBU_E();
+	void LHU_E();
 
 	uint32_t new_pc; //write back to register when execute finished
 };
