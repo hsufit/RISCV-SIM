@@ -49,6 +49,9 @@ void CPU::set_register_file(const std::shared_ptr<REGISTER_INTERFACE> &instance)
 void CPU::set_address_space(const std::shared_ptr<ADDRESS_SPACE_INTERFACE> &instance)
 {
 	address_space = instance;
+	if(executor != nullptr) {
+		executor->set_address_space(address_space);
+	}
 }
 
 void CPU::set_instruction_decoder(const std::shared_ptr<INSTRUCTION_DECODER_INTERFACE> &instance)
@@ -68,6 +71,10 @@ void CPU::set_executor(const std::shared_ptr<EXECUTOR_INTERFACE> &instance)
 
 	if(register_file != nullptr) {
 		executor->set_register_file(register_file);
+	}
+
+	if(address_space != nullptr) {
+		executor->set_address_space(address_space);
 	}
 
 }

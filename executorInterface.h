@@ -2,6 +2,7 @@
 
 #include "instructionDecoderInterface.h"
 #include "registerInterface.h"
+#include "addressSpaceInterface.h"
 
 #ifndef INC_EXECUTOR_INTERFACE_H_
 #define INC_EXECUTOR_INTERFACE_H_
@@ -14,13 +15,20 @@ public:
 
 		instruction_decoder = instance;
 	}
+
 	void set_register_file(const std::shared_ptr<REGISTER_INTERFACE> &instance)
 	{
 		register_file = instance;
 	}
 
+	void set_address_space(const std::shared_ptr<ADDRESS_SPACE_INTERFACE> &instance)
+	{
+		address_space = instance;
+	}
+
 protected:
 	std::shared_ptr<INSTRUCTION_DECODER_INTERFACE> instruction_decoder;
 	std::shared_ptr<REGISTER_INTERFACE> register_file;
+	std::shared_ptr<ADDRESS_SPACE_INTERFACE> address_space;
 };
 #endif //INC_EXECUTOR_INTERFACE_H_
