@@ -34,10 +34,10 @@ void CPU::step()
 		0b0000001'00000'00001'00110'0000011, //LH x6 = sign_ext(read(1, 2))
 		0b0000001'00000'00101'00110'0000011, //LHU x6 = read(1, 2)
 	};
+	uint32_t instruction = address_space->read(register_file->get_pc(), 4);
 
-	instruction_decoder->set_instruction(fakeInstructionMemory[register_file->get_pc() / 4]);
+	instruction_decoder->set_instruction(instruction);
 	executor->execute();
-	pc++;
 }
 
 void CPU::set_register_file(const std::shared_ptr<REGISTER_INTERFACE> &instance)
