@@ -15,6 +15,7 @@ MEMORY::MEMORY(sc_module_name name) : sc_module(name)
 		0b00000000000000000001'00110'0010111, //AUIPC x6 = pc + (1 << 12)
 		0b0000001'00000'00001'00110'0000011, //LH x6 = sign_ext(read(1, 2))
 		0b0000001'00000'00101'00110'0000011, //LHU x6 = read(1, 2)
+		0b0100000'00111'00000'001'00000'0100011, //SH write( 1024, x7, 2))
 	};
 	programLoader(binary);
 	memory_socket.register_b_transport(this, &MEMORY::b_transport);
@@ -46,8 +47,10 @@ void MEMORY::b_transport(tlm::tlm_generic_payload &trans, sc_core::sc_time &dela
 		if(adr < dataMemory.size()) {
 			if(cmd == tlm::TLM_READ_COMMAND) {
 				((char *)ptr)[i] = dataMemory[adr + i];
+				//std::cout << "addr: " << adr + i << "--" << (int)dataMemory[adr + i] << std::endl;
 			} else if(cmd == tlm::TLM_WRITE_COMMAND) {
 				dataMemory[adr + i] = ((char *)ptr)[i];
+				//std::cout << "addr: " << adr + i << "--" << (int)dataMemory[adr + i] << std::endl;
 			} else {
 				std::cout << "unsupported operation" << adr << "!!" << std::endl;
 			}

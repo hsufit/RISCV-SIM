@@ -8,7 +8,7 @@ CPU::CPU(sc_module_name name) : sc_module(name)
 
 void CPU::hello_thread(void)
 {
-	for(int i = 0; i < 12; i++) {
+	for(int i = 0; i < 13; i++) {
 		step();
 		wait(delay);
 	}
