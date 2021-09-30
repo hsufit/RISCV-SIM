@@ -249,6 +249,7 @@ void EXECUTOR::LH_E()
 	auto value = address_space->read(addr, 2) << 16 >> 16;
 	register_file->set_value_integer(rd, value);
 	std::cout << "LH" << std::endl;
+	std::cout << "rs1: " << rs1 << std::endl;
 	std::cout << "rd: " << rd << std::endl;
 	std::cout << "addr: " << addr << std::endl;
 	std::cout << "value: " << value << std::endl;
@@ -283,6 +284,7 @@ void EXECUTOR::LHU_E()
 	auto value = address_space->read(addr, 2);
 	register_file->set_value_integer(rd, value);
 	std::cout << "LHU" << std::endl;
+	std::cout << "rs1: " << rs1 << std::endl;
 	std::cout << "rd: " << rd << std::endl;
 	std::cout << "addr: " << addr << std::endl;
 	std::cout << "value: " << value << std::endl;
