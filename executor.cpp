@@ -70,6 +70,22 @@ void EXECUTOR::execute()
 					break;
 			}
 			break;
+		case INSTRUCTION_DECODER_INTERFACE::STORE_OP:
+			switch (instruction_decoder->get_func3()) {
+				case INSTRUCTION_DECODER_INTERFACE::SB_FN3:
+					SB_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::SH_FN3:
+					SH_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::SW_FN3:
+					SW_E();
+					break;
+				default:
+					std::cout << "INVALID: Func3 in STORE_OP :" << instruction_decoder->get_func3() << std::endl;
+					break;
+			}
+			break;
 		default:
 			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
@@ -272,3 +288,38 @@ void EXECUTOR::LHU_E()
 	std::cout << "value: " << value << std::endl;
 }
 
+void EXECUTOR::SB_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto offset =  (instruction_decoder->get_imm(31, 25) << 5) |
+	               (instruction_decoder->get_imm(11, 7) & 0x1F);
+	auto addr = register_file->get_value_integer(rs1) + offset;
+	address_space->write(addr, register_file->get_value_integer(rs2), 1);
+}
+
+void EXECUTOR::SH_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto offset =  (instruction_decoder->get_imm(31, 25) << 5) |
+	               (instruction_decoder->get_imm(11, 7) & 0x1F);
+	auto addr = register_file->get_value_integer(rs1) + offset;
+	address_space->write(addr, register_file->get_value_integer(rs2), 2);
+	std::cout << "SH" << std::endl;
+	std::cout << "rs1: " << rs1 << std::endl;
+	std::cout << "rs2: " << rs2 << std::endl;
+	std::cout << "addr: " << addr << std::endl;
+}
+
+void EXECUTOR::SW_E()
+{
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto offset =  (instruction_decoder->get_imm(31, 25) << 5) |
+	               (instruction_decoder->get_imm(11, 7) & 0x1F);
+	auto addr = register_file->get_value_integer(rs1) + offset;
+}

@@ -23,6 +23,9 @@ private:
 	void LW_E();
 	void LBU_E();
 	void LHU_E();
+	void SB_E();
+	void SH_E();
+	void SW_E();
 
 	uint32_t new_pc; //write back to register when execute finished
 };
