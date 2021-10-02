@@ -324,4 +324,5 @@ void EXECUTOR::SW_E()
 	auto offset =  (instruction_decoder->get_imm(31, 25) << 5) |
 	               (instruction_decoder->get_imm(11, 7) & 0x1F);
 	auto addr = register_file->get_value_integer(rs1) + offset;
+	address_space->write(addr, register_file->get_value_integer(rs2), 4);
 }
