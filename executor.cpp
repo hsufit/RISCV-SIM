@@ -86,6 +86,18 @@ void EXECUTOR::execute()
 					break;
 			}
 			break;
+		case INSTRUCTION_DECODER_INTERFACE::JAL_OP:
+			JAL_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::JALR_OP:
+			switch (instruction_decoder->get_func3()) {
+				case INSTRUCTION_DECODER_INTERFACE::JALR_FN3:
+					JALR_E();
+					break;
+				default:
+					std::cout << "INVALID: Func3 in JALR_OP :" << instruction_decoder->get_func3() << std::endl;
+					break;
+			}
 		default:
 			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
@@ -325,4 +337,28 @@ void EXECUTOR::SW_E()
 	               (instruction_decoder->get_imm(11, 7) & 0x1F);
 	auto addr = register_file->get_value_integer(rs1) + offset;
 	address_space->write(addr, register_file->get_value_integer(rs2), 4);
+}
+
+void EXECUTOR::JAL_E()
+{
+	auto imm = instruction_decoder->get_imm(31, 12);
+	auto offset = ((imm & ~0xEFFFF) |         //imm[30:19] > offset[31:20]
+	               (imm & 0xFF) << 11 |       //imm[7:0] > offset[19:12]
+	               (imm & (0x1 << 8)) << 2 |  //imm[8] > offset[11]
+	               (imm & (0x3FF << 9)) >> 9) //imm[18:9] > offset[10:1]
+	              << 1; //need to refactor to readable monkey style
+	auto rd = instruction_decoder->get_rd();
+
+	register_file->set_value_integer(rd, new_pc);
+	new_pc = register_file->get_pc() + offset;
+}
+
+void EXECUTOR::JALR_E()
+{
+	auto offset = instruction_decoder->get_imm(31, 20);
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rd = instruction_decoder->get_rd();
+
+	register_file->set_value_integer(rd, new_pc);
+	new_pc = (register_file->get_pc() + offset) & ~0x1;
 }

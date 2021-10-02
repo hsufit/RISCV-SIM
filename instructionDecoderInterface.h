@@ -18,6 +18,8 @@ public:
 		AUIPC_OP = 0b0010111,
 		LOAD_OP = 0b0000011,
 		STORE_OP = 0b0100011,
+		JAL_OP = 0b1101111,
+		JALR_OP = 0b1100111,
 	};
 
 	enum Func3 {
@@ -39,6 +41,7 @@ public:
 		SB_FN3 = 0b000,
 		SH_FN3 = 0b001,
 		SW_FN3 = 0b010,
+		JALR_FN3 = 0b000,
 
 	};
 

@@ -26,6 +26,8 @@ private:
 	void SB_E();
 	void SH_E();
 	void SW_E();
+	void JAL_E();
+	void JALR_E();
 
 	uint32_t new_pc; //write back to register when execute finished
 };
