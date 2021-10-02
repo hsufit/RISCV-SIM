@@ -38,3 +38,14 @@ int32_t INSTRUCTION_DECODER::get_imm(uint32_t end, uint32_t start)
 	return value;
 }
 
+int32_t INSTRUCTION_DECODER::get_imm_j()
+{
+	auto value = sc_dt::sc_int<32>();
+	value(20, 20) = instruction_value(31, 31);
+	value(19, 12) = instruction_value(19, 12);
+	value(11, 11) = instruction_value(20, 20);
+	value(10, 1) = instruction_value(31, 21);
+	value <<= 12;
+	value >>= 12;
+	return value;
+}
