@@ -45,7 +45,7 @@ int32_t INSTRUCTION_DECODER::get_imm_j()
 	value(19, 12) = instruction_value(19, 12);
 	value(11, 11) = instruction_value(20, 20);
 	value(10, 1) = instruction_value(31, 21);
-	value <<= 12;
-	value >>= 12;
+	value <<= 11;
+	value >>= 11;
 	return value;
 }
