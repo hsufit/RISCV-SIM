@@ -351,6 +351,9 @@ void EXECUTOR::JAL_E()
 
 	register_file->set_value_integer(rd, new_pc);
 	new_pc = register_file->get_pc() + offset;
+	std::cout << "JAL" << std::endl;
+	std::cout << "rd: " << rd << std::endl;
+	std::cout << "new_pc: " << new_pc << std::endl;
 }
 
 void EXECUTOR::JALR_E()

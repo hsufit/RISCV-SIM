@@ -16,6 +16,7 @@ MEMORY::MEMORY(sc_module_name name) : sc_module(name)
 		0b000000000100'00000'001'00111'0000011, //LH x7 = sign_ext(read(4, 2))
 		0b000000000100'00000'101'01000'0000011, //LHU x8 = read(4, 2)
 		0b0100000'00111'00000'001'00000'0100011, //SH write( 1024, x7, 2))
+		0b11111111110111111111'00000'1101111, //JAL rd = pc + 4; pc = pc + imm*2
 	};
 	programLoader(binary);
 	memory_socket.register_b_transport(this, &MEMORY::b_transport);
