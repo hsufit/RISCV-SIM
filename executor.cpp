@@ -342,7 +342,7 @@ void EXECUTOR::SW_E()
 void EXECUTOR::JAL_E()
 {
 	auto imm = instruction_decoder->get_imm(31, 12);
-	auto offset = ((imm & ~0xEFFFF) |         //imm[30:19] > offset[31:20]
+	auto offset = ((imm & ~0x7FFFF) |         //imm[30:19] > offset[31:20]
 	               (imm & 0xFF) << 11 |       //imm[7:0] > offset[19:12]
 	               (imm & (0x1 << 8)) << 2 |  //imm[8] > offset[11]
 	               (imm & (0x3FF << 9)) >> 9) //imm[18:9] > offset[10:1]
