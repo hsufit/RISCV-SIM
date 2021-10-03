@@ -49,3 +49,15 @@ int32_t INSTRUCTION_DECODER::get_imm_j()
 	value >>= 11;
 	return value;
 }
+
+int32_t INSTRUCTION_DECODER::get_imm_b()
+{
+	auto value = sc_dt::sc_int<32>();
+	value(12, 12) = instruction_value(31, 31);
+	value(11, 11) = instruction_value(7, 7);
+	value(10, 5) = instruction_value(30, 25);
+	value(4, 1) = instruction_value(11, 8);
+	value <<= 19;
+	value >>= 19;
+	return value;
+}
