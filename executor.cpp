@@ -98,6 +98,7 @@ void EXECUTOR::execute()
 					std::cout << "INVALID: Func3 in JALR_OP :" << instruction_decoder->get_func3() << std::endl;
 					break;
 			}
+			break;
 		case INSTRUCTION_DECODER_INTERFACE::BRANCH_OP:
 			switch (instruction_decoder->get_func3()) {
 				case INSTRUCTION_DECODER_INTERFACE::BEQ_FN3:
@@ -122,6 +123,7 @@ void EXECUTOR::execute()
 					std::cout << "INVALID: Func3 in BRANCH_OP :" << instruction_decoder->get_func3() << std::endl;
 					break;
 			}
+			break;
 		default:
 			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
