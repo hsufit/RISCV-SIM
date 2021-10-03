@@ -22,7 +22,7 @@ public:
 	void set_executor(const std::shared_ptr<EXECUTOR_INTERFACE> &instance);
 
 private:
-	void hello_thread(void);
+	void cpu_thread(void);
 	void step();
 
 	sc_core::sc_time  delay = sc_core::sc_time(1, sc_core::SC_NS);

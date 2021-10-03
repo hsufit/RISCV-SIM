@@ -3,10 +3,10 @@
 CPU::CPU(sc_module_name name) : sc_module(name)
 {
 	SC_HAS_PROCESS(CPU);
-	SC_THREAD(hello_thread);
+	SC_THREAD(cpu_thread);
 }
 
-void CPU::hello_thread(void)
+void CPU::cpu_thread(void)
 {
 	for(int i = 0; i < 16; i++) {
 		step();
