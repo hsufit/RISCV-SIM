@@ -98,6 +98,30 @@ void EXECUTOR::execute()
 					std::cout << "INVALID: Func3 in JALR_OP :" << instruction_decoder->get_func3() << std::endl;
 					break;
 			}
+		case INSTRUCTION_DECODER_INTERFACE::BRANCH_OP:
+			switch (instruction_decoder->get_func3()) {
+				case INSTRUCTION_DECODER_INTERFACE::BEQ_FN3:
+					BEQ_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::BNE_FN3:
+					BNE_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::BLT_FN3:
+					BLT_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::BGE_FN3:
+					BGE_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::BLTU_FN3:
+					BLTU_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::BGEU_FN3:
+					BGEU_E();
+					break;
+				default:
+					std::cout << "INVALID: Func3 in BRANCH_OP :" << instruction_decoder->get_func3() << std::endl;
+					break;
+			}
 		default:
 			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
@@ -360,3 +384,70 @@ void EXECUTOR::JALR_E()
 	register_file->set_value_integer(rd, new_pc);
 	new_pc = (register_file->get_pc() + offset) & ~0x1;
 }
+
+void EXECUTOR::BEQ_E()
+{
+	auto offset = instruction_decoder->get_imm_b();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	new_pc = register_file->get_pc() +
+	         (register_file->get_value_integer(rs1) == register_file->get_value_integer(rs1) ?
+	          offset : 4);
+}
+
+void EXECUTOR::BNE_E()
+{
+	auto offset = instruction_decoder->get_imm_b();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	new_pc = register_file->get_pc() +
+	         (register_file->get_value_integer(rs1) != register_file->get_value_integer(rs1) ?
+	          offset : 4);
+}
+
+void EXECUTOR::BLT_E()
+{
+	auto offset = instruction_decoder->get_imm_b();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	new_pc = register_file->get_pc() +
+	         (register_file->get_value_integer(rs1) < register_file->get_value_integer(rs1) ?
+	          offset : 4);
+}
+
+void EXECUTOR::BGE_E()
+{
+	auto offset = instruction_decoder->get_imm_b();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	new_pc = register_file->get_pc() +
+	         (register_file->get_value_integer(rs1) >= register_file->get_value_integer(rs1) ?
+	          offset : 4);
+}
+
+void EXECUTOR::BLTU_E()
+{
+	auto offset = instruction_decoder->get_imm_b();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	new_pc = register_file->get_pc() +
+	         ((uint32_t) register_file->get_value_integer(rs1) < (uint32_t) register_file->get_value_integer(rs1) ?
+	          offset : 4);
+}
+
+void EXECUTOR::BGEU_E()
+{
+	auto offset = instruction_decoder->get_imm_b();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	new_pc = register_file->get_pc() +
+	         ((uint32_t) register_file->get_value_integer(rs1) >= (uint32_t) register_file->get_value_integer(rs1) ?
+	          offset : 4);
+}
+

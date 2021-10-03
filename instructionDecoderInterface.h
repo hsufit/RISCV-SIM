@@ -20,6 +20,7 @@ public:
 		STORE_OP = 0b0100011,
 		JAL_OP = 0b1101111,
 		JALR_OP = 0b1100111,
+		BRANCH_OP = 0b1100011,
 	};
 
 	enum Func3 {
@@ -42,7 +43,12 @@ public:
 		SH_FN3 = 0b001,
 		SW_FN3 = 0b010,
 		JALR_FN3 = 0b000,
-
+		BEQ_FN3 = 0b000,
+		BNE_FN3 = 0b001,
+		BLT_FN3 = 0b100,
+		BGE_FN3 = 0b101,
+		BLTU_FN3 = 0b110,
+		BGEU_FN3 = 0b111,
 	};
 
 	void set_instruction(uint32_t value)

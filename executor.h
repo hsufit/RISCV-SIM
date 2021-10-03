@@ -28,6 +28,12 @@ private:
 	void SW_E();
 	void JAL_E();
 	void JALR_E();
+	void BEQ_E();
+	void BNE_E();
+	void BLT_E();
+	void BGE_E();
+	void BLTU_E();
+	void BGEU_E();
 
 	uint32_t new_pc; //write back to register when execute finished
 };
