@@ -16,7 +16,11 @@ MEMORY::MEMORY(sc_module_name name) : sc_module(name)
 		0b000000000100'00000'001'00111'0000011, //LH x7 = sign_ext(read(4, 2))
 		0b000000000100'00000'101'01000'0000011, //LHU x8 = read(4, 2)
 		0b0100000'00111'00000'001'00000'0100011, //SH write( 1024, x7, 2))
-		0b11111111110111111111'00000'1101111, //JAL rd = pc + 4; pc = pc + imm*2
+		0b00000000100000000000'01001'1101111, //JAL x9 = pc + 4; pc = pc + 8
+		0b0000000'00000'00000'000'01000'1100011, //BEQ pc = current_pc + (x0 == x0 ? imm : 4) <--bad guy that ISA manual talk about
+		0b000000000000'01001'000'00000'1100111, //JALR x0 = pc + 4; pc = x9 + 0
+		0b000000000000'00000'000'00000'0010011, //NOP <--put this here temporaty
+
 	};
 	programLoader(binary);
 	memory_socket.register_b_transport(this, &MEMORY::b_transport);

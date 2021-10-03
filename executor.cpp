@@ -383,6 +383,10 @@ void EXECUTOR::JALR_E()
 
 	register_file->set_value_integer(rd, new_pc);
 	new_pc = (register_file->get_pc() + offset) & ~0x1;
+	std::cout << "JALR" << std::endl;
+	std::cout << "rs1: " << rs1 << std::endl;
+	std::cout << "rd: " << rd << std::endl;
+	std::cout << "new_pc: " << new_pc << std::endl;
 }
 
 void EXECUTOR::BEQ_E()
@@ -394,6 +398,11 @@ void EXECUTOR::BEQ_E()
 	new_pc = register_file->get_pc() +
 	         (register_file->get_value_integer(rs1) == register_file->get_value_integer(rs1) ?
 	          offset : 4);
+	std::cout << "BEQ" << std::endl;
+	std::cout << "rs1: " << rs1 << std::endl;
+	std::cout << "rs2: " << rs2 << std::endl;
+	std::cout << "offset: " << offset << std::endl;
+	std::cout << "new_pc: " << new_pc << std::endl;
 }
 
 void EXECUTOR::BNE_E()
