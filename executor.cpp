@@ -382,7 +382,7 @@ void EXECUTOR::JALR_E()
 	auto rd = instruction_decoder->get_rd();
 
 	register_file->set_value_integer(rd, new_pc);
-	new_pc = (register_file->get_pc() + offset) & ~0x1;
+	new_pc = (register_file->get_value_integer(rs1) + offset) & ~0x1;
 	std::cout << "JALR" << std::endl;
 	std::cout << "rs1: " << rs1 << std::endl;
 	std::cout << "rd: " << rd << std::endl;
