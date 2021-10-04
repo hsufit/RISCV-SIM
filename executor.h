@@ -7,6 +7,14 @@ class EXECUTOR: public EXECUTOR_INTERFACE
 public:
 	virtual void execute() override;
 private:
+	void cmmand_dispatch();
+	void imm_dispatch();
+	void load_dispatch();
+	void store_dispatch();
+	void jalr_dispatch();
+	void branch_dispatch();
+
+
 	void ADDI_E();
 	void ANDI_E();
 	void ORI_E();

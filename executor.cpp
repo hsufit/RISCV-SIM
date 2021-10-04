@@ -5,42 +5,15 @@
 void EXECUTOR::execute()
 {
 	new_pc = register_file->get_pc() + 4;
+	cmmand_dispatch();
+	register_file->set_pc(new_pc);
+}
 
+void EXECUTOR::cmmand_dispatch()
+{
 	switch (instruction_decoder->get_opcode()) {
 		case INSTRUCTION_DECODER_INTERFACE::IMM_OP:
-			switch (instruction_decoder->get_func3()) {
-				case INSTRUCTION_DECODER_INTERFACE::ADDI_FN3:
-					ADDI_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::ANDI_FN3:
-					ANDI_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::XORI_FN3:
-					ORI_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::ORI_FN3:
-					XORI_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::SLTI_FN3:
-					SLTI_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::SLTIU_FN3:
-					SLTIU_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::SLLI_FN3:
-					SLLI_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::SRLI_FN3://same as INSTRUCTION_DECODER_INTERFACE::SRAI_FN3
-					if(instruction_decoder->get_imm(30, 30) == 0) {
-						SRLI_E();
-					} else {
-						SRAI_E();
-					}
-					break;
-				default:
-					std::cout << "INVALID: Func3 in IMM_OP :" << instruction_decoder->get_func3() << std::endl;
-					break;
-			}
+			imm_dispatch();
 			break;
 		case INSTRUCTION_DECODER_INTERFACE::LUI_OP:
 			LUI_E();
@@ -49,87 +22,142 @@ void EXECUTOR::execute()
 			AUIPC_E();
 			break;
 		case INSTRUCTION_DECODER_INTERFACE::LOAD_OP:
-			switch (instruction_decoder->get_func3()) {
-				case INSTRUCTION_DECODER_INTERFACE::LB_FN3:
-					LB_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::LH_FN3:
-					LH_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::LW_FN3:
-					LW_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::LBU_FN3:
-					LBU_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::LHU_FN3:
-					LHU_E();
-					break;
-				default:
-					std::cout << "INVALID: Func3 in LOAD_OP :" << instruction_decoder->get_func3() << std::endl;
-					break;
-			}
+			load_dispatch();
 			break;
 		case INSTRUCTION_DECODER_INTERFACE::STORE_OP:
-			switch (instruction_decoder->get_func3()) {
-				case INSTRUCTION_DECODER_INTERFACE::SB_FN3:
-					SB_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::SH_FN3:
-					SH_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::SW_FN3:
-					SW_E();
-					break;
-				default:
-					std::cout << "INVALID: Func3 in STORE_OP :" << instruction_decoder->get_func3() << std::endl;
-					break;
-			}
+			store_dispatch();
 			break;
 		case INSTRUCTION_DECODER_INTERFACE::JAL_OP:
 			JAL_E();
 			break;
 		case INSTRUCTION_DECODER_INTERFACE::JALR_OP:
-			switch (instruction_decoder->get_func3()) {
-				case INSTRUCTION_DECODER_INTERFACE::JALR_FN3:
-					JALR_E();
-					break;
-				default:
-					std::cout << "INVALID: Func3 in JALR_OP :" << instruction_decoder->get_func3() << std::endl;
-					break;
-			}
+			jalr_dispatch();
 			break;
 		case INSTRUCTION_DECODER_INTERFACE::BRANCH_OP:
-			switch (instruction_decoder->get_func3()) {
-				case INSTRUCTION_DECODER_INTERFACE::BEQ_FN3:
-					BEQ_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::BNE_FN3:
-					BNE_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::BLT_FN3:
-					BLT_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::BGE_FN3:
-					BGE_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::BLTU_FN3:
-					BLTU_E();
-					break;
-				case INSTRUCTION_DECODER_INTERFACE::BGEU_FN3:
-					BGEU_E();
-					break;
-				default:
-					std::cout << "INVALID: Func3 in BRANCH_OP :" << instruction_decoder->get_func3() << std::endl;
-					break;
-			}
+			branch_dispatch();
 			break;
 		default:
 			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
 	}
+}
 
-	register_file->set_pc(new_pc);
+void EXECUTOR::imm_dispatch()
+{
+	switch (instruction_decoder->get_func3()) {
+		case INSTRUCTION_DECODER_INTERFACE::ADDI_FN3:
+			ADDI_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::ANDI_FN3:
+			ANDI_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::XORI_FN3:
+			ORI_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::ORI_FN3:
+			XORI_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::SLTI_FN3:
+			SLTI_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::SLTIU_FN3:
+			SLTIU_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::SLLI_FN3:
+			SLLI_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::SRLI_FN3://same as INSTRUCTION_DECODER_INTERFACE::SRAI_FN3
+			if(instruction_decoder->get_imm(30, 30) == 0) {
+				SRLI_E();
+			} else {
+				SRAI_E();
+			}
+			break;
+		default:
+			std::cout << "INVALID: Func3 in IMM_OP :" << instruction_decoder->get_func3() << std::endl;
+			break;
+	}
+}
+
+void EXECUTOR::load_dispatch()
+{
+	switch (instruction_decoder->get_func3()) {
+		case INSTRUCTION_DECODER_INTERFACE::LB_FN3:
+			LB_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::LH_FN3:
+			LH_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::LW_FN3:
+			LW_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::LBU_FN3:
+			LBU_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::LHU_FN3:
+			LHU_E();
+			break;
+		default:
+			std::cout << "INVALID: Func3 in LOAD_OP :" << instruction_decoder->get_func3() << std::endl;
+			break;
+	}
+}
+
+void EXECUTOR::store_dispatch()
+{
+	switch (instruction_decoder->get_func3()) {
+		case INSTRUCTION_DECODER_INTERFACE::SB_FN3:
+			SB_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::SH_FN3:
+			SH_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::SW_FN3:
+			SW_E();
+			break;
+		default:
+			std::cout << "INVALID: Func3 in STORE_OP :" << instruction_decoder->get_func3() << std::endl;
+			break;
+	}
+}
+
+void EXECUTOR::jalr_dispatch()
+{
+	switch (instruction_decoder->get_func3()) {
+		case INSTRUCTION_DECODER_INTERFACE::JALR_FN3:
+			JALR_E();
+			break;
+		default:
+			std::cout << "INVALID: Func3 in JALR_OP :" << instruction_decoder->get_func3() << std::endl;
+			break;
+	}
+}
+
+void EXECUTOR::branch_dispatch()
+{
+	switch (instruction_decoder->get_func3()) {
+		case INSTRUCTION_DECODER_INTERFACE::BEQ_FN3:
+			BEQ_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::BNE_FN3:
+			BNE_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::BLT_FN3:
+			BLT_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::BGE_FN3:
+			BGE_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::BLTU_FN3:
+			BLTU_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::BGEU_FN3:
+			BGEU_E();
+			break;
+		default:
+			std::cout << "INVALID: Func3 in BRANCH_OP :" << instruction_decoder->get_func3() << std::endl;
+			break;
+	}
 }
 
 void EXECUTOR::ADDI_E()
