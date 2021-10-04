@@ -16,5 +16,6 @@ public:
 	virtual int32_t get_imm(uint32_t start, uint32_t end) override;
 	virtual int32_t get_imm_j() override;
 	virtual int32_t get_imm_b() override;
+	virtual uint32_t get_imm_fence_fm() override;
 };
 #endif //INSTRUCTION_INTERFAC

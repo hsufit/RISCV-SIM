@@ -61,3 +61,8 @@ int32_t INSTRUCTION_DECODER::get_imm_b()
 	value >>= 19;
 	return value;
 }
+
+uint32_t INSTRUCTION_DECODER::get_imm_fence_fm()
+{
+	return instruction_value.range(31, 28);
+}
