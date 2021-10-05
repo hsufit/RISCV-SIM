@@ -5,6 +5,7 @@
 #include "tlm_utils/simple_initiator_socket.h"
 #include "tlm_utils/simple_target_socket.h"
 
+#include "cpuInterface.h"
 #include "registerInterface.h"
 #include "addressSpaceInterface.h"
 #include "instructionDecoderInterface.h"
@@ -12,7 +13,7 @@
 
 #ifndef INC_CPU_H_
 #define INC_CPU_H_
-class CPU : public sc_module
+class CPU :public CPU_INTERFACE, public sc_module
 {
 public:
 	CPU(sc_module_name name);
@@ -21,6 +22,8 @@ public:
 	void set_instruction_decoder(const std::shared_ptr<INSTRUCTION_DECODER_INTERFACE> &instance);
 	void set_executor(const std::shared_ptr<EXECUTOR_INTERFACE> &instance);
 
+	virtual void raise_exception(uint32_t cause) override;
+	virtual void raise_interrupt(uint32_t cause) override;
 private:
 	void cpu_thread(void);
 	void step();

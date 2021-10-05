@@ -8,7 +8,7 @@ LIB=-lsystemc
 export SYSTEMC_HOME=/usr/local/systemc-2.3.3
 export LD_LIBRARY_PATH=$(SYSTEMC_HOME)/lib-linux64
 
-INC_INTERFACE=addressSpaceInterface registerInterface instructionDecoderInterface executorInterface
+INC_INTERFACE=addressSpaceInterface registerInterface instructionDecoderInterface executorInterface cpuInterface
 SRC=main cpu memory register bus instructionDecoder executor
 APP=simulator
 

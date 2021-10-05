@@ -62,3 +62,16 @@ void CPU::set_executor(const std::shared_ptr<EXECUTOR_INTERFACE> &instance)
 	}
 
 }
+
+void CPU::raise_exception(uint32_t cause)
+{
+	std::cout << "exception!" << std::endl;
+	sc_core::sc_stop();
+}
+
+void CPU::raise_interrupt(uint32_t cause)
+{
+	std::cout << "interrupt!" << std::endl;
+	sc_core::sc_stop();
+}
+
