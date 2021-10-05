@@ -19,7 +19,7 @@ MEMORY::MEMORY(sc_module_name name) : sc_module(name)
 		0b00000000100000000000'01001'1101111, //JAL x9 = pc + 4; pc = pc + 8
 		0b0000000'00000'00000'000'01000'1100011, //BEQ pc = current_pc + (x0 == x0 ? imm : 4) <--bad guy that ISA manual talk about
 		0b000000000000'01001'000'00000'1100111, //JALR x0 = pc + 4; pc = x9 + 0
-		0b000000000000'00000'000'00000'0010011, //NOP <--put this here temporaty
+		0b000000000000'00000'000'00000'1110011, //ECALL
 
 	};
 	programLoader(binary);

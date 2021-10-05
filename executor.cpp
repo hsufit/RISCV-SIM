@@ -539,9 +539,11 @@ void EXECUTOR::FENCE_TSO_E()
 
 void EXECUTOR::ECALL_E()
 {
+	std::cout << "ECALL, end simulation!" << std::endl;
 	sc_core::sc_stop();
 }
 void EXECUTOR::EBREAK_E()
 {
+	std::cout << "EBREAK, end simulation!" << std::endl;
 	sc_core::sc_stop();
 }
