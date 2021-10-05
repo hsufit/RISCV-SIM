@@ -184,7 +184,7 @@ void EXECUTOR::fence_dispatch()
 	}
 }
 
-	void EXECUTOR::system_dispatch()
+void EXECUTOR::system_dispatch()
 {
 	switch (instruction_decoder->get_func12()) {
 		case INSTRUCTION_DECODER_INTERFACE::ECALL_FN12:
@@ -542,6 +542,7 @@ void EXECUTOR::ECALL_E()
 	std::cout << "ECALL, end simulation!" << std::endl;
 	sc_core::sc_stop();
 }
+
 void EXECUTOR::EBREAK_E()
 {
 	std::cout << "EBREAK, end simulation!" << std::endl;
