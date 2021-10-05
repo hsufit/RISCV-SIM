@@ -39,6 +39,9 @@ void EXECUTOR::cmmand_dispatch()
 		case INSTRUCTION_DECODER_INTERFACE::MISC_MEM_OP:
 			fence_dispatch();
 			break;
+		case INSTRUCTION_DECODER_INTERFACE::SYSTEM_OP:
+			system_dispatch();
+			break;
 		default:
 			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
@@ -180,6 +183,22 @@ void EXECUTOR::fence_dispatch()
 			break;
 	}
 }
+
+	void EXECUTOR::system_dispatch()
+{
+	switch (instruction_decoder->get_func12()) {
+		case INSTRUCTION_DECODER_INTERFACE::ECALL_FN12:
+			ECALL_E();
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::EBREAK_FN12:
+			EBREAK_E();
+			break;
+		default:
+			std::cout << "INVALID: Func3 in MISC_MEM_OP :" << instruction_decoder->get_func3() << std::endl;
+			break;
+	}
+}
+
 void EXECUTOR::ADDI_E()
 {
 	auto rs1 = instruction_decoder->get_rs1();
@@ -516,4 +535,13 @@ void EXECUTOR::FENCE_E()
 
 void EXECUTOR::FENCE_TSO_E()
 {
+}
+
+void EXECUTOR::ECALL_E()
+{
+	sc_core::sc_stop();
+}
+void EXECUTOR::EBREAK_E()
+{
+	sc_core::sc_stop();
 }

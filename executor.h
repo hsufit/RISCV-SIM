@@ -14,6 +14,7 @@ private:
 	void jalr_dispatch();
 	void branch_dispatch();
 	void fence_dispatch();
+	void system_dispatch();
 
 
 	void ADDI_E();
@@ -45,6 +46,8 @@ private:
 	void BGEU_E();
 	void FENCE_E();
 	void FENCE_TSO_E();
+	void ECALL_E();
+	void EBREAK_E();
 
 	uint32_t new_pc; //write back to register when execute finished
 };

@@ -22,6 +22,7 @@ public:
 		JALR_OP = 0b1100111,
 		BRANCH_OP = 0b1100011,
 		MISC_MEM_OP = 0b0001111,
+		SYSTEM_OP = 0b1110011,
 	};
 
 	enum Func3 {
@@ -51,6 +52,11 @@ public:
 		BLTU_FN3 = 0b110,
 		BGEU_FN3 = 0b111,
 		FENCE_FN3 = 0b000,
+	};
+
+	enum Func12 {
+		ECALL_FN12 = 0b0,
+		EBREAK_FN12 = 0b1,
 	};
 
 	void set_instruction(uint32_t value)
