@@ -8,6 +8,7 @@ public:
 	virtual uint32_t get_opcode() override;
 	virtual uint32_t get_func3() override;
 	virtual uint32_t get_func7() override;
+	virtual uint32_t get_func12() override;
 
 	virtual uint32_t get_rs1() override;
 	virtual uint32_t get_rs2() override;

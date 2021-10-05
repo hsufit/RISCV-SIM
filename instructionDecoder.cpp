@@ -14,6 +14,10 @@ uint32_t INSTRUCTION_DECODER::get_func7()
 {
 	return instruction_value.range(31,25);
 }
+uint32_t INSTRUCTION_DECODER::get_func12()
+{
+	return instruction_value.range(31, 20);
+}
 
 uint32_t INSTRUCTION_DECODER::get_rs1()
 {

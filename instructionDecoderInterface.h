@@ -69,6 +69,7 @@ public:
 	virtual uint32_t get_opcode() = 0;
 	virtual uint32_t get_func3() = 0;
 	virtual uint32_t get_func7() = 0;
+	virtual uint32_t get_func12() = 0;
 
 	virtual uint32_t get_rs1() = 0;
 	virtual uint32_t get_rs2() = 0;
