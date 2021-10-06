@@ -69,18 +69,80 @@ void CPU::set_executor(const std::shared_ptr<EXECUTOR_INTERFACE> &instance)
 void CPU::raise_exception(uint32_t cause)
 {
 	switch(cause) {
-		case 3:
+		case CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::INSTRUCTION_ACCESS_FAULT_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::ILLEGAL_INSTRUCTION_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::BREAKPOINT_EXCEPTION_CAUSE:
 			std::cout << "EBREAK, end simulation!" << std::endl;
 			break;
-		case 11:
+		case CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::LOAD_ACCESS_FAULT_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::STORE_AMO_ADDRESS_MISALIGNED_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::STORE_AMO_ACCESS_FAULT_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::ENVIRONMENT_CALL_FROM_U_MODE_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::ENVIRONMENT_CALL_FROM_S_MODE_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::RESERVED_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::ENVIRONMENT_CALL_FROM_M_MODE_EXCEPTION_CAUSE:
 			std::cout << "ECALL, end simulation!" << std::endl;
 			break;
+		case CPU_INTERFACE::INSTRUCTION_PAGE_FAULT_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::LOAD_PAGE_FAULT_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::RESERVED_FOR_FUTURE_STANDARD_USE_EXCEPTION_CAUSE:
+			break;
+		case CPU_INTERFACE::STORE_AMO_PAGE_FAULT_EXCEPTION_CAUSE:
+			break;
+		default:
+			std::cout << "unsupported exception cause: " << cause << std::endl;
+			break;
 	}
+
+	std::cout << "exception!" << std::endl;
 	sc_core::sc_stop();
 }
 
 void CPU::raise_interrupt(uint32_t cause)
 {
+	switch (cause) {
+		case CPU_INTERFACE::USER_SOFTWARE_INTERRUPT_INTERRUPT_CAUSE:
+			break;
+		case CPU_INTERFACE::SUPERVISOR_SOFTWARE_INTERRUPT_INTERRUPT_CAUSE:
+			break;
+		//case CPU_INTERFACE::RESERVED_FOR_FUTURE_STANDARD_USE_INTERRUPT_CAUSE:
+		//	break;
+		case CPU_INTERFACE::MACHINE_SOFTWARE_INTERRUPT_INTERRUPT_CAUSE:
+			break;
+		case CPU_INTERFACE::USER_TIMER_INTERRUPT_INTERRUPT_CAUSE:
+			break;
+		case CPU_INTERFACE::SUPERVISOR_TIMER_INTERRUPT_INTERRUPT_CAUSE:
+			break;
+		//case CPU_INTERFACE::RESERVED_FOR_FUTURE_STANDARD_USE_INTERRUPT_CAUSE:
+		//	break;
+		case CPU_INTERFACE::MACHINE_TIMER_INTERRUPT_INTERRUPT_CAUSE:
+			break;
+		case CPU_INTERFACE::USER_EXTERNAL_INTERRUPT_INTERRUPT_CAUSE:
+			break;
+		case CPU_INTERFACE::SUPERVISOR_EXTERNAL_INTERRUPT_INTERRUPT_CAUSE:
+			break;
+		//case CPU_INTERFACE::RESERVED_FOR_FUTURE_STANDARD_USE_INTERRUPT_CAUSE:
+		//	break;
+		case CPU_INTERFACE::MACHINE_EXTERNAL_INTERRUPT_INTERRUPT_CAUSE:
+			break;
+		default:
+			std::cout << "unsupported interrupt cause: " << cause << std::endl;
+			break;
+	}
 	std::cout << "interrupt!" << std::endl;
 	sc_core::sc_stop();
 }

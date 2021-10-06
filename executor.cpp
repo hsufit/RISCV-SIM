@@ -565,14 +565,12 @@ void EXECUTOR::FENCE_TSO_E()
 
 void EXECUTOR::ECALL_E()
 {
-	const int cause = 11;
-	cpu->raise_exception(cause);
+	cpu->raise_exception(CPU_INTERFACE::ENVIRONMENT_CALL_FROM_M_MODE_EXCEPTION_CAUSE);
 }
 
 void EXECUTOR::EBREAK_E()
 {
-	const int cause = 3;
-	cpu->raise_exception(cause);
+	cpu->raise_exception(CPU_INTERFACE::BREAKPOINT_EXCEPTION_CAUSE);
 }
 void EXECUTOR::ADD_E()
 {
