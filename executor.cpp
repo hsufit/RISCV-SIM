@@ -539,12 +539,12 @@ void EXECUTOR::FENCE_TSO_E()
 
 void EXECUTOR::ECALL_E()
 {
-	std::cout << "ECALL, end simulation!" << std::endl;
-	sc_core::sc_stop();
+	const int cause = 11;
+	cpu->raise_exception(cause);
 }
 
 void EXECUTOR::EBREAK_E()
 {
-	std::cout << "EBREAK, end simulation!" << std::endl;
-	sc_core::sc_stop();
+	const int cause = 3;
+	cpu->raise_exception(cause);
 }

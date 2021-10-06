@@ -49,6 +49,9 @@ void CPU::set_instruction_decoder(const std::shared_ptr<INSTRUCTION_DECODER_INTE
 void CPU::set_executor(const std::shared_ptr<EXECUTOR_INTERFACE> &instance)
 {
 	executor = instance;
+
+	executor->set_cpu(std::shared_ptr<CPU_INTERFACE>(this));
+
 	if(instruction_decoder != nullptr) {
 		executor->set_instruction_decoder(instruction_decoder);
 	}
@@ -65,7 +68,14 @@ void CPU::set_executor(const std::shared_ptr<EXECUTOR_INTERFACE> &instance)
 
 void CPU::raise_exception(uint32_t cause)
 {
-	std::cout << "exception!" << std::endl;
+	switch(cause) {
+		case 3:
+			std::cout << "EBREAK, end simulation!" << std::endl;
+			break;
+		case 11:
+			std::cout << "ECALL, end simulation!" << std::endl;
+			break;
+	}
 	sc_core::sc_stop();
 }
 
