@@ -42,6 +42,9 @@ void EXECUTOR::cmmand_dispatch()
 		case INSTRUCTION_DECODER_INTERFACE::SYSTEM_OP:
 			system_dispatch();
 			break;
+		case INSTRUCTION_DECODER_INTERFACE::REG_OP:
+			reg_dispatch();
+			break;
 		default:
 			std::cout << "INVALID: Opcode :" << instruction_decoder->get_opcode() << std::endl;
 			break;
@@ -197,6 +200,29 @@ void EXECUTOR::system_dispatch()
 			std::cout << "INVALID: Func3 in MISC_MEM_OP :" << instruction_decoder->get_func3() << std::endl;
 			break;
 	}
+}
+
+void EXECUTOR::reg_dispatch()
+{
+	switch (instruction_decoder->get_func3()) {
+		case INSTRUCTION_DECODER_INTERFACE::ADDI_FN3: //SUB_FN3 is the same
+			switch (instruction_decoder->get_func7()) {
+				case INSTRUCTION_DECODER_INTERFACE::ADD_FN7:
+					ADD_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::SUB_FN7:
+					SUB_E();
+					break;
+				default:
+					std::cout << "INVALID: Func7 in REG_OP :" << instruction_decoder->get_func3() << std::endl;
+					break;
+			}
+			break;
+		default:
+			std::cout << "INVALID: Func3 in REG_OP :" << instruction_decoder->get_func3() << std::endl;
+			break;
+	}
+
 }
 
 void EXECUTOR::ADDI_E()
@@ -548,3 +574,23 @@ void EXECUTOR::EBREAK_E()
 	const int cause = 3;
 	cpu->raise_exception(cause);
 }
+void EXECUTOR::ADD_E()
+{
+	auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto value = register_file->get_value_integer(rs1) + register_file->get_value_integer(rs2);
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::SUB_E()
+{
+	auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto value = register_file->get_value_integer(rs1) - register_file->get_value_integer(rs2);
+	register_file->set_value_integer(rd, value);
+}
+

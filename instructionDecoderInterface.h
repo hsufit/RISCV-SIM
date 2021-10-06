@@ -23,6 +23,7 @@ public:
 		BRANCH_OP = 0b1100011,
 		MISC_MEM_OP = 0b0001111,
 		SYSTEM_OP = 0b1110011,
+		REG_OP = 0b0110011,
 	};
 
 	enum Func3 {
@@ -52,6 +53,13 @@ public:
 		BLTU_FN3 = 0b110,
 		BGEU_FN3 = 0b111,
 		FENCE_FN3 = 0b000,
+		ADD_FN3 = 0b000,
+		SUB_FN3 = 0b000,
+	};
+
+	enum Func7 {
+		ADD_FN7 = 0b0000000,
+		SUB_FN7 = 0b0100000,
 	};
 
 	enum Func12 {
