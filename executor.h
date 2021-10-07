@@ -51,6 +51,9 @@ private:
 	void EBREAK_E();
 	void ADD_E();
 	void SUB_E();
+	void AND_E();
+	void OR_E();
+	void XOR_E();
 
 	uint32_t new_pc; //write back to register when execute finished
 };

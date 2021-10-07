@@ -232,6 +232,18 @@ void EXECUTOR::reg_dispatch()
 					break;
 			}
 			break;
+		case INSTRUCTION_DECODER_INTERFACE::AND_FN3:
+			AND_E();
+			//do not check FN7 for readibility, refactor in future
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::OR_FN3:
+			OR_E();
+			//do not check FN7 for readibility, refactor in future
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::XOR_FN3:
+			XOR_E();
+			//do not check FN7 for readibility, refactor in future
+			break;
 		default:
 			std::cout << "INVALID: Func3 in REG_OP :" << instruction_decoder->get_func3() << std::endl;
 			break;
@@ -391,8 +403,7 @@ void EXECUTOR::LH_E()
 	auto rd = instruction_decoder->get_rd();
 	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
 
-	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_HW))
-	{
+	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_HW)) {
 		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -411,8 +422,7 @@ void EXECUTOR::LW_E()
 	auto rd = instruction_decoder->get_rd();
 	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
 
-	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_W))
-	{
+	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_W)) {
 		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -436,8 +446,7 @@ void EXECUTOR::LHU_E()
 	auto rd = instruction_decoder->get_rd();
 	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
 
-	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_HW))
-	{
+	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_HW)) {
 		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -470,8 +479,7 @@ void EXECUTOR::SH_E()
 	               (instruction_decoder->get_imm(11, 7) & 0x1F);
 	auto addr = register_file->get_value_integer(rs1) + offset;
 
-	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_HW))
-	{
+	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_HW)) {
 		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -491,8 +499,7 @@ void EXECUTOR::SW_E()
 	               (instruction_decoder->get_imm(11, 7) & 0x1F);
 	auto addr = register_file->get_value_integer(rs1) + offset;
 
-	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_W))
-	{
+	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_W)) {
 		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -505,8 +512,7 @@ void EXECUTOR::JAL_E()
 	auto rd = instruction_decoder->get_rd();
 	auto addr = register_file->get_pc() + offset;
 
-	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT))
-	{
+	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -524,8 +530,7 @@ void EXECUTOR::JALR_E()
 	auto rd = instruction_decoder->get_rd();
 	auto addr = (register_file->get_value_integer(rs1) + offset) & ~0x1;
 
-	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT))
-	{
+	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -543,11 +548,10 @@ void EXECUTOR::BEQ_E()
 	auto rs1 = instruction_decoder->get_rs1();
 	auto rs2 = instruction_decoder->get_rs2();
 	auto addr = register_file->get_pc() +
-	         (register_file->get_value_integer(rs1) == register_file->get_value_integer(rs1) ?
-	          offset : 4);
+	            (register_file->get_value_integer(rs1) == register_file->get_value_integer(rs1) ?
+	             offset : 4);
 
-	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT))
-	{
+	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -565,11 +569,10 @@ void EXECUTOR::BNE_E()
 	auto rs1 = instruction_decoder->get_rs1();
 	auto rs2 = instruction_decoder->get_rs2();
 	auto addr = register_file->get_pc() +
-	         (register_file->get_value_integer(rs1) != register_file->get_value_integer(rs1) ?
-	          offset : 4);
+	            (register_file->get_value_integer(rs1) != register_file->get_value_integer(rs1) ?
+	             offset : 4);
 
-	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT))
-	{
+	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -582,11 +585,10 @@ void EXECUTOR::BLT_E()
 	auto rs1 = instruction_decoder->get_rs1();
 	auto rs2 = instruction_decoder->get_rs2();
 	auto addr = register_file->get_pc() +
-	         (register_file->get_value_integer(rs1) < register_file->get_value_integer(rs1) ?
-	          offset : 4);
+	            (register_file->get_value_integer(rs1) < register_file->get_value_integer(rs1) ?
+	             offset : 4);
 
-	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT))
-	{
+	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -599,11 +601,10 @@ void EXECUTOR::BGE_E()
 	auto rs1 = instruction_decoder->get_rs1();
 	auto rs2 = instruction_decoder->get_rs2();
 	auto addr = register_file->get_pc() +
-	         (register_file->get_value_integer(rs1) >= register_file->get_value_integer(rs1) ?
-	          offset : 4);
+	            (register_file->get_value_integer(rs1) >= register_file->get_value_integer(rs1) ?
+	             offset : 4);
 
-	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT))
-	{
+	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -616,11 +617,10 @@ void EXECUTOR::BLTU_E()
 	auto rs1 = instruction_decoder->get_rs1();
 	auto rs2 = instruction_decoder->get_rs2();
 	auto addr = register_file->get_pc() +
-	         ((uint32_t) register_file->get_value_integer(rs1) < (uint32_t) register_file->get_value_integer(rs1) ?
-	          offset : 4);
+	            ((uint32_t) register_file->get_value_integer(rs1) < (uint32_t) register_file->get_value_integer(rs1) ?
+	             offset : 4);
 
-	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT))
-	{
+	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -633,11 +633,10 @@ void EXECUTOR::BGEU_E()
 	auto rs1 = instruction_decoder->get_rs1();
 	auto rs2 = instruction_decoder->get_rs2();
 	auto addr = register_file->get_pc() +
-	         ((uint32_t) register_file->get_value_integer(rs1) >= (uint32_t) register_file->get_value_integer(rs1) ?
-	          offset : 4);
+	            ((uint32_t) register_file->get_value_integer(rs1) >= (uint32_t) register_file->get_value_integer(rs1) ?
+	             offset : 4);
 
-	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT))
-	{
+	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
@@ -678,6 +677,36 @@ void EXECUTOR::SUB_E()
 	auto rs2 = instruction_decoder->get_rs2();
 
 	auto value = register_file->get_value_integer(rs1) - register_file->get_value_integer(rs2);
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::AND_E()
+{
+	auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto value = register_file->get_value_integer(rs1) & register_file->get_value_integer(rs2);
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::OR_E()
+{
+	auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto value = register_file->get_value_integer(rs1) | register_file->get_value_integer(rs2);
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::XOR_E()
+{
+	auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto value = register_file->get_value_integer(rs1) ^ register_file->get_value_integer(rs2);
 	register_file->set_value_integer(rd, value);
 }
 

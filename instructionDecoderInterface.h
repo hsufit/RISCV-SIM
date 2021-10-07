@@ -55,11 +55,17 @@ public:
 		FENCE_FN3 = 0b000,
 		ADD_FN3 = 0b000,
 		SUB_FN3 = 0b000,
+		AND_FN3 = 0b111,
+		OR_FN3 = 0b110,
+		XOR_FN3 = 0b100,
 	};
 
 	enum Func7 {
 		ADD_FN7 = 0b0000000,
 		SUB_FN7 = 0b0100000,
+		AND_FN7 = 0b0000000,
+		OR_FN7 = 0b0000000,
+		XOR_FN7 = 0b0000000,
 	};
 
 	enum Func12 {
