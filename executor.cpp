@@ -3,6 +3,8 @@
 #include "executor.h"
 
 #define INSTRUCTION_ALIGNMENT 4
+#define LOAD_STORE_ALIGNMENT_W 4
+#define LOAD_STORE_ALIGNMENT_HW 4
 
 bool isAlignment(uint32_t address, unsigned int baseNumber)
 {
@@ -389,6 +391,11 @@ void EXECUTOR::LH_E()
 	auto rd = instruction_decoder->get_rd();
 	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
 
+	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_HW))
+	{
+		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
+	}
+
 	auto value = address_space->read(addr, 2) << 16 >> 16;
 	register_file->set_value_integer(rd, value);
 	std::cout << "LH" << std::endl;
@@ -403,6 +410,11 @@ void EXECUTOR::LW_E()
 	auto rs1 = instruction_decoder->get_rs1();
 	auto rd = instruction_decoder->get_rd();
 	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
+
+	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_W))
+	{
+		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
+	}
 
 	auto value = address_space->read(addr, 4);
 	register_file->set_value_integer(rd, value);
@@ -423,6 +435,11 @@ void EXECUTOR::LHU_E()
 	auto rs1 = instruction_decoder->get_rs1();
 	auto rd = instruction_decoder->get_rd();
 	auto addr = register_file->get_value_integer(rs1) + (uint32_t) instruction_decoder->get_imm(31, 20);
+
+	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_HW))
+	{
+		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
+	}
 
 	auto value = address_space->read(addr, 2);
 	register_file->set_value_integer(rd, value);
@@ -452,6 +469,12 @@ void EXECUTOR::SH_E()
 	auto offset =  (instruction_decoder->get_imm(31, 25) << 5) |
 	               (instruction_decoder->get_imm(11, 7) & 0x1F);
 	auto addr = register_file->get_value_integer(rs1) + offset;
+
+	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_HW))
+	{
+		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
+	}
+
 	address_space->write(addr, register_file->get_value_integer(rs2), 2);
 	std::cout << "SH" << std::endl;
 	std::cout << "rs1: " << rs1 << std::endl;
@@ -467,6 +490,12 @@ void EXECUTOR::SW_E()
 	auto offset =  (instruction_decoder->get_imm(31, 25) << 5) |
 	               (instruction_decoder->get_imm(11, 7) & 0x1F);
 	auto addr = register_file->get_value_integer(rs1) + offset;
+
+	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_W))
+	{
+		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
+	}
+
 	address_space->write(addr, register_file->get_value_integer(rs2), 4);
 }
 
