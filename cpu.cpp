@@ -70,21 +70,27 @@ void CPU::raise_exception(uint32_t cause)
 {
 	switch(cause) {
 		case CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE:
+			std::cout << "Address Misalignment, end simulation!" << std::endl;
 			break;
 		case CPU_INTERFACE::INSTRUCTION_ACCESS_FAULT_EXCEPTION_CAUSE:
 			break;
 		case CPU_INTERFACE::ILLEGAL_INSTRUCTION_EXCEPTION_CAUSE:
+			std::cout << "Illegal Instruction, end simulation!" << std::endl;
 			break;
 		case CPU_INTERFACE::BREAKPOINT_EXCEPTION_CAUSE:
 			std::cout << "EBREAK, end simulation!" << std::endl;
 			break;
 		case CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE:
+			std::cout << "Load Address Misalignment, end simulation!" << std::endl;
 			break;
 		case CPU_INTERFACE::LOAD_ACCESS_FAULT_EXCEPTION_CAUSE:
+			std::cout << "Access Fault, end simulation!" << std::endl;
 			break;
 		case CPU_INTERFACE::STORE_AMO_ADDRESS_MISALIGNED_EXCEPTION_CAUSE:
+			std::cout << "Store and AMO Address Misalignment, end simulation!" << std::endl;
 			break;
 		case CPU_INTERFACE::STORE_AMO_ACCESS_FAULT_EXCEPTION_CAUSE:
+			std::cout << "Store and AMO Access Fault, end simulation!" << std::endl;
 			break;
 		case CPU_INTERFACE::ENVIRONMENT_CALL_FROM_U_MODE_EXCEPTION_CAUSE:
 			break;
