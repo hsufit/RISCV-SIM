@@ -480,7 +480,7 @@ void EXECUTOR::SH_E()
 	auto addr = register_file->get_value_integer(rs1) + offset;
 
 	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_HW)) {
-		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
+		cpu->raise_exception(CPU_INTERFACE::STORE_AMO_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
 	address_space->write(addr, register_file->get_value_integer(rs2), 2);
@@ -500,7 +500,7 @@ void EXECUTOR::SW_E()
 	auto addr = register_file->get_value_integer(rs1) + offset;
 
 	if(!isAlignment(addr, LOAD_STORE_ALIGNMENT_W)) {
-		cpu->raise_exception(CPU_INTERFACE::LOAD_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
+		cpu->raise_exception(CPU_INTERFACE::STORE_AMO_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
 	}
 
 	address_space->write(addr, register_file->get_value_integer(rs2), 4);
