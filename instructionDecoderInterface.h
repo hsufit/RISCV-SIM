@@ -58,6 +58,8 @@ public:
 		AND_FN3 = 0b111,
 		OR_FN3 = 0b110,
 		XOR_FN3 = 0b100,
+		SLT_FN3 = 0b010,
+		SLTU_FN3 = 0b011,
 	};
 
 	enum Func7 {
@@ -66,6 +68,8 @@ public:
 		AND_FN7 = 0b0000000,
 		OR_FN7 = 0b0000000,
 		XOR_FN7 = 0b0000000,
+		SLT_FN7 = 0b0000000,
+		SLTU_FN7 = 0b0000000,
 	};
 
 	enum Func12 {

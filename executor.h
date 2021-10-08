@@ -54,6 +54,8 @@ private:
 	void AND_E();
 	void OR_E();
 	void XOR_E();
+	void SLT_E();
+	void SLTU_E();
 
 	uint32_t new_pc; //write back to register when execute finished
 };

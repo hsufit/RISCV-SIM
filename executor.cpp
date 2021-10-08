@@ -244,6 +244,14 @@ void EXECUTOR::reg_dispatch()
 			XOR_E();
 			//do not check FN7 for readibility, refactor in future
 			break;
+		case INSTRUCTION_DECODER_INTERFACE::SLT_FN3:
+			SLT_E();
+			//do not check FN7 for readibility, refactor in future
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::SLTU_FN3:
+			SLTU_E();
+			//do not check FN7 for readibility, refactor in future
+			break;
 		default:
 			std::cout << "INVALID: Func3 in REG_OP :" << instruction_decoder->get_func3() << std::endl;
 			break;
@@ -707,6 +715,26 @@ void EXECUTOR::XOR_E()
 	auto rs2 = instruction_decoder->get_rs2();
 
 	auto value = register_file->get_value_integer(rs1) ^ register_file->get_value_integer(rs2);
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::SLT_E()
+{
+	auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto value = register_file->get_value_integer(rs1) < register_file->get_value_integer(rs2) ? 1 : 0;
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::SLTU_E()
+{
+	auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto value = (uint32_t)register_file->get_value_integer(rs1) < (uint32_t)register_file->get_value_integer(rs2) ? 1 : 0;
 	register_file->set_value_integer(rd, value);
 }
 
