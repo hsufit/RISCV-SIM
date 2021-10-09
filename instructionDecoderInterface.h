@@ -126,6 +126,7 @@ public:
 		SLL_INSTRUCTION_ENUM,
 		SRL_INSTRUCTION_ENUM,
 		SRA_INSTRUCTION_ENUM,
+		INVALID_INSTRUCTION_ENUM,
 	};
 
 	std::map<Instruction, std::string> instruction_name_map = {

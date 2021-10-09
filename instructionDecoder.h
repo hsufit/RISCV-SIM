@@ -6,6 +6,15 @@ class INSTRUCTION_DECODER: public INSTRUCTION_DECODER_INTERFACE
 {
 public:
 	virtual INSTRUCTION_DECODER_INTERFACE::Instruction get_instruction() override;
+	INSTRUCTION_DECODER_INTERFACE::Instruction cmmand_dispatch();
+	INSTRUCTION_DECODER_INTERFACE::Instruction imm_dispatch();
+	INSTRUCTION_DECODER_INTERFACE::Instruction load_dispatch();
+	INSTRUCTION_DECODER_INTERFACE::Instruction store_dispatch();
+	INSTRUCTION_DECODER_INTERFACE::Instruction jalr_dispatch();
+	INSTRUCTION_DECODER_INTERFACE::Instruction branch_dispatch();
+	INSTRUCTION_DECODER_INTERFACE::Instruction fence_dispatch();
+	INSTRUCTION_DECODER_INTERFACE::Instruction system_dispatch();
+	INSTRUCTION_DECODER_INTERFACE::Instruction reg_dispatch();
 	virtual uint32_t get_opcode() override;
 	virtual uint32_t get_func3() override;
 	virtual uint32_t get_func7() override;

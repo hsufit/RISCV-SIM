@@ -8,16 +8,6 @@ public:
 	virtual void execute() override;
 private:
 	void command_dispatch();
-	void cmmand_dispatch();
-	void imm_dispatch();
-	void load_dispatch();
-	void store_dispatch();
-	void jalr_dispatch();
-	void branch_dispatch();
-	void fence_dispatch();
-	void system_dispatch();
-	void reg_dispatch();
-
 
 	void ADDI_E();
 	void ANDI_E();
