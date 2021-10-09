@@ -56,6 +56,9 @@ private:
 	void XOR_E();
 	void SLT_E();
 	void SLTU_E();
+	void SLL_E();
+	void SRL_E();
+	void SRA_E();
 
 	uint32_t new_pc; //write back to register when execute finished
 };

@@ -252,6 +252,23 @@ void EXECUTOR::reg_dispatch()
 			SLTU_E();
 			//do not check FN7 for readibility, refactor in future
 			break;
+		case INSTRUCTION_DECODER_INTERFACE::SLL_FN3:
+			SLL_E();
+			//do not check FN7 for readibility, refactor in future
+			break;
+		case INSTRUCTION_DECODER_INTERFACE::SRL_FN3:
+			switch (instruction_decoder->get_func7()) {
+				case INSTRUCTION_DECODER_INTERFACE::SRL_FN7:
+					SRL_E();
+					break;
+				case INSTRUCTION_DECODER_INTERFACE::SRA_FN7:
+					SRA_E();
+					break;
+				default:
+					std::cout << "INVALID: Func7 in REG_OP :" << instruction_decoder->get_func3() << std::endl;
+					break;
+			}
+			break;
 		default:
 			std::cout << "INVALID: Func3 in REG_OP :" << instruction_decoder->get_func3() << std::endl;
 			break;
@@ -735,6 +752,36 @@ void EXECUTOR::SLTU_E()
 	auto rs2 = instruction_decoder->get_rs2();
 
 	auto value = (uint32_t)register_file->get_value_integer(rs1) < (uint32_t)register_file->get_value_integer(rs2) ? 1 : 0;
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::SLL_E()
+{
+	auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto value = register_file->get_value_integer(rs1) << register_file->get_value_integer(rs2);
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::SRL_E()
+{
+	auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto value = (uint32_t)register_file->get_value_integer(rs1) >> register_file->get_value_integer(rs2);
+	register_file->set_value_integer(rd, value);
+}
+
+void EXECUTOR::SRA_E()
+{
+	auto rd = instruction_decoder->get_rd();
+	auto rs1 = instruction_decoder->get_rs1();
+	auto rs2 = instruction_decoder->get_rs2();
+
+	auto value = register_file->get_value_integer(rs1) >> register_file->get_value_integer(rs2);
 	register_file->set_value_integer(rd, value);
 }
 
