@@ -1,5 +1,9 @@
 #include "instructionDecoder.h"
 
+INSTRUCTION_DECODER_INTERFACE::Instruction INSTRUCTION_DECODER::get_instruction()
+{
+}
+
 uint32_t INSTRUCTION_DECODER::get_opcode()
 {
 	return instruction_value.range(6, 0);

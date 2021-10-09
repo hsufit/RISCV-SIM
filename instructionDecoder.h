@@ -5,6 +5,7 @@
 class INSTRUCTION_DECODER: public INSTRUCTION_DECODER_INTERFACE
 {
 public:
+	virtual INSTRUCTION_DECODER_INTERFACE::Instruction get_instruction() override;
 	virtual uint32_t get_opcode() override;
 	virtual uint32_t get_func3() override;
 	virtual uint32_t get_func7() override;

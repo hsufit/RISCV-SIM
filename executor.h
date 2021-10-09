@@ -7,6 +7,7 @@ class EXECUTOR: public EXECUTOR_INTERFACE
 public:
 	virtual void execute() override;
 private:
+	void command_dispatch();
 	void cmmand_dispatch();
 	void imm_dispatch();
 	void load_dispatch();

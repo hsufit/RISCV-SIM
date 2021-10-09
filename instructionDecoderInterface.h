@@ -186,6 +186,7 @@ public:
 		return INSTRUCTION_DECODER_INTERFACE::UNSUPPORTED;
 	}
 
+	virtual Instruction get_instruction() = 0;
 	virtual uint32_t get_opcode() = 0;
 	virtual uint32_t get_func3() = 0;
 	virtual uint32_t get_func7() = 0;
