@@ -50,7 +50,7 @@ void CPU::set_executor(const std::shared_ptr<EXECUTOR_INTERFACE> &instance)
 {
 	executor = instance;
 
-	executor->set_cpu(std::shared_ptr<CPU_INTERFACE>(this, [](CPU *p){}));
+	executor->set_cpu(std::shared_ptr<CPU_INTERFACE>(this, [](CPU *p) {}));
 
 	if(instruction_decoder != nullptr) {
 		executor->set_instruction_decoder(instruction_decoder);

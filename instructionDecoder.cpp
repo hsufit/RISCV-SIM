@@ -52,7 +52,7 @@ INSTRUCTION_DECODER_INTERFACE::Instruction INSTRUCTION_DECODER::imm_dispatch()
 {
 	switch (get_func3()) {
 		case INSTRUCTION_DECODER_INTERFACE::ADDI_FN3:
-		return ADDI_INSTRUCTION_ENUM;
+			return ADDI_INSTRUCTION_ENUM;
 
 		case INSTRUCTION_DECODER_INTERFACE::ANDI_FN3:
 			return ANDI_INSTRUCTION_ENUM;
@@ -181,7 +181,7 @@ INSTRUCTION_DECODER_INTERFACE::Instruction INSTRUCTION_DECODER::fence_dispatch()
 				return FENCE_TSO_INSTRUCTION_ENUM;
 			} else {
 				std::cout << "INVALID: fm in MISC_MEM_OP :" << get_func3() << std::endl;
-			return INVALID_INSTRUCTION_ENUM;
+				return INVALID_INSTRUCTION_ENUM;
 			}
 
 		default:
@@ -214,52 +214,52 @@ INSTRUCTION_DECODER_INTERFACE::Instruction INSTRUCTION_DECODER::reg_dispatch()
 			switch (get_func7()) {
 				case INSTRUCTION_DECODER_INTERFACE::ADD_FN7:
 					return ADD_INSTRUCTION_ENUM;
-		
+
 				case INSTRUCTION_DECODER_INTERFACE::SUB_FN7:
 					return SUB_INSTRUCTION_ENUM;
-		
+
 				default:
 					std::cout << "INVALID: Func7 in REG_OP :" << get_func3() << std::endl;
-			return INVALID_INSTRUCTION_ENUM;
-		
+					return INVALID_INSTRUCTION_ENUM;
+
 			}
 
 		case INSTRUCTION_DECODER_INTERFACE::AND_FN3:
 			return AND_INSTRUCTION_ENUM;
-			//do not check FN7 for readibility, refactor in future
+		//do not check FN7 for readibility, refactor in future
 
 		case INSTRUCTION_DECODER_INTERFACE::OR_FN3:
 			return OR_INSTRUCTION_ENUM;
-			//do not check FN7 for readibility, refactor in future
+		//do not check FN7 for readibility, refactor in future
 
 		case INSTRUCTION_DECODER_INTERFACE::XOR_FN3:
 			return XOR_INSTRUCTION_ENUM;
-			//do not check FN7 for readibility, refactor in future
+		//do not check FN7 for readibility, refactor in future
 
 		case INSTRUCTION_DECODER_INTERFACE::SLT_FN3:
 			return SLT_INSTRUCTION_ENUM;
-			//do not check FN7 for readibility, refactor in future
+		//do not check FN7 for readibility, refactor in future
 
 		case INSTRUCTION_DECODER_INTERFACE::SLTU_FN3:
 			return SLTU_INSTRUCTION_ENUM;
-			//do not check FN7 for readibility, refactor in future
+		//do not check FN7 for readibility, refactor in future
 
 		case INSTRUCTION_DECODER_INTERFACE::SLL_FN3:
 			return SLL_INSTRUCTION_ENUM;
-			//do not check FN7 for readibility, refactor in future
+		//do not check FN7 for readibility, refactor in future
 
 		case INSTRUCTION_DECODER_INTERFACE::SRL_FN3:
 			switch (get_func7()) {
 				case INSTRUCTION_DECODER_INTERFACE::SRL_FN7:
 					return SRL_INSTRUCTION_ENUM;
-		
+
 				case INSTRUCTION_DECODER_INTERFACE::SRA_FN7:
 					return SRA_INSTRUCTION_ENUM;
-		
+
 				default:
 					std::cout << "INVALID: Func7 in REG_OP :" << get_func3() << std::endl;
-			return INVALID_INSTRUCTION_ENUM;
-		
+					return INVALID_INSTRUCTION_ENUM;
+
 			}
 
 		default:
@@ -269,6 +269,7 @@ INSTRUCTION_DECODER_INTERFACE::Instruction INSTRUCTION_DECODER::reg_dispatch()
 	}
 
 }
+
 void INSTRUCTION_DECODER::log_instruction(uint32_t current_pc, uint32_t target_pc, uint32_t rs1Value, uint32_t rs2Value, uint32_t rdValue,int32_t immValue)
 {
 
