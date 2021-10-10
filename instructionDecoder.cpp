@@ -269,6 +269,26 @@ INSTRUCTION_DECODER_INTERFACE::Instruction INSTRUCTION_DECODER::reg_dispatch()
 	}
 
 }
+void INSTRUCTION_DECODER::log_instruction(uint32_t current_pc, uint32_t target_pc, uint32_t rs1Value, uint32_t rs2Value, uint32_t rdValue,int32_t immValue)
+{
+
+	auto instructionName = instruction_name_map[get_instruction()];
+	auto rd = get_rd();
+	auto rs1 = get_rs1();
+	auto rs2 = get_rs2();
+
+	std::cout << "current_pc: 0x" << std::hex << current_pc
+	          << " target_pc: 0x" << std::hex << target_pc
+		  << " " << instructionName
+		  << " " << std::dec  << rs1
+		  << " " << std::dec  << rs2
+		  << " " << std::dec  << rd
+	          << " rs1Value: 0x" << std::hex << rs1Value
+	          << " rs2Value: 0x" << std::hex << rs2Value
+	          << " rdValue: 0x" << std::hex << rdValue
+	          << " immValue: 0x" << std::hex << immValue
+		  << std::endl;
+}
 
 uint32_t INSTRUCTION_DECODER::get_opcode()
 {

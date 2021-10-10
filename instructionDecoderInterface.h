@@ -188,6 +188,7 @@ public:
 	}
 
 	virtual Instruction get_instruction() = 0;
+	virtual void log_instruction(uint32_t current_pc, uint32_t target_pc, uint32_t rs1Value, uint32_t rs2Value, uint32_t rdValue,int32_t immValue) = 0;
 	virtual uint32_t get_opcode() = 0;
 	virtual uint32_t get_func3() = 0;
 	virtual uint32_t get_func7() = 0;

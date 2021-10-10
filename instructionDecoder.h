@@ -15,6 +15,7 @@ public:
 	INSTRUCTION_DECODER_INTERFACE::Instruction fence_dispatch();
 	INSTRUCTION_DECODER_INTERFACE::Instruction system_dispatch();
 	INSTRUCTION_DECODER_INTERFACE::Instruction reg_dispatch();
+	virtual void log_instruction(uint32_t current_pc, uint32_t target_pc, uint32_t rs1Value, uint32_t rs2Value, uint32_t rdValue,int32_t immValue) override;
 	virtual uint32_t get_opcode() override;
 	virtual uint32_t get_func3() override;
 	virtual uint32_t get_func7() override;
