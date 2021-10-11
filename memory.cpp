@@ -1,3 +1,6 @@
+#include <cerrno>
+#include <map>
+
 #include "memory.h"
 
 MEMORY::MEMORY(sc_module_name name) : sc_module(name)
@@ -22,9 +25,12 @@ MEMORY::MEMORY(sc_module_name name) : sc_module(name)
 		0b000000000000'00000'000'00000'1110011, //ECALL
 
 	};
-	programLoader(binary);
+	//programLoader(binary);
+	loadBinaeyFromHex();
 	memory_socket.register_b_transport(this, &MEMORY::b_transport);
+
 }
+
 void MEMORY::programLoader(std::array<uint32_t, 4096> &binary)
 {
 	for(auto instruction: binary) {
@@ -35,6 +41,66 @@ void MEMORY::programLoader(std::array<uint32_t, 4096> &binary)
 
 		if(instruction != 0)
 			std::cout << "inst: " << instruction << std::endl;
+	}
+}
+
+void MEMORY::loadBinaeyFromHex(std::string filePath)
+{
+	std::ifstream hexFile(filePath);
+	std::string line = "";
+
+	if(!hexFile.is_open()) {
+		std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+		std::cout << "Binary File Open Failed!!" << std::endl;
+		std::cout << "Cause: " << std::strerror(errno) << std::endl;
+		std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+		return;
+	}
+
+	uint32_t extended_address = 0;
+	uint32_t memory_offset = 0;
+	uint32_t program_counter = 0;
+	dataMemory.assign(0x100000, 0);
+	while(std::getline(hexFile, line)) {
+		if(line[0] != ':') {
+			continue; //skip this line
+		}
+
+		switch (std::stoul(line.substr(7, 2))) {
+			case 0: { //Data
+				auto byteCount = std::stol(line.substr(1, 2), nullptr, 16);
+				auto address = extended_address + std::stoul(line.substr(3, 4), nullptr, 16);
+				for(int i=0; i < byteCount; i++) {
+					auto value = std::stoul(line.substr(9 + (i*2), 2), nullptr, 16);
+					dataMemory[address + i] = value;
+					std::cout << "00" << " address: 0x" << address + i << " value: 0x" <<  std::hex << value << std::endl;
+				}
+			}
+			break;
+			case 2: { //Extended segment address
+				extended_address = std::stoul(line.substr(9, 4), nullptr, 16);
+			}
+			break;
+			case 3: { //Start segment address
+				uint32_t code_segment = stoul(line.substr(9, 4), nullptr, 16);
+				program_counter = code_segment + stoul(line.substr(13, 4), nullptr, 16);
+				std::cout << "03 " << "program counter should be: 0x" << std::hex << program_counter << std::endl;
+			}
+			break;
+			case 4: { //Start srgmant address
+				memory_offset = stoul(line.substr(9, 4), nullptr, 16) << 16;
+				extended_address = 0;
+			}
+			break;
+			case 5: { //Get start program counter
+				program_counter = stol(line.substr(9, 8), nullptr, 16);
+				std::cout << "05 " << "program counter should be: 0x" << std::hex << program_counter << std::endl;
+			}
+			break;
+			default:
+				break;
+		}
+
 	}
 }
 

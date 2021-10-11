@@ -19,5 +19,6 @@ private:
 
 	std::vector<uint8_t> dataMemory;
 	void programLoader(std::array<uint32_t, 4096> &binary);
+	void loadBinaeyFromHex(std::string filePath = "./binary.hex");
 };
 #endif //INC_MEMORY_H_
