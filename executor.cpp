@@ -149,6 +149,9 @@ void EXECUTOR::command_dispatch()
 		case INSTRUCTION_DECODER_INTERFACE::SRA_INSTRUCTION_ENUM:
 			SRA_E();
 			break;
+		default:
+			cpu->raise_exception(CPU_INTERFACE::ILLEGAL_INSTRUCTION_EXCEPTION_CAUSE);
+			break;
 	}
 }
 
