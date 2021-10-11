@@ -280,15 +280,15 @@ void INSTRUCTION_DECODER::log_instruction(uint32_t current_pc, uint32_t target_p
 
 	std::cout << "current_pc: 0x" << std::hex << current_pc
 	          << " target_pc: 0x" << std::hex << target_pc
-		  << " " << instructionName
-		  << " " << std::dec  << rs1
-		  << " " << std::dec  << rs2
-		  << " " << std::dec  << rd
+	          << " " << instructionName
+	          << " " << std::dec  << rs1
+	          << " " << std::dec  << rs2
+	          << " " << std::dec  << rd
 	          << " rs1Value: 0x" << std::hex << rs1Value
 	          << " rs2Value: 0x" << std::hex << rs2Value
 	          << " rdValue: 0x" << std::hex << rdValue
 	          << " immValue: 0x" << std::hex << immValue
-		  << std::endl;
+	          << std::endl;
 }
 
 uint32_t INSTRUCTION_DECODER::get_opcode()
