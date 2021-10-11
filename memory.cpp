@@ -57,11 +57,11 @@ void MEMORY::b_transport(tlm::tlm_generic_payload &trans, sc_core::sc_time &dela
 				dataMemory[adr + i] = ((char *)ptr)[i];
 				//std::cout << "addr: " << adr + i << "--" << (int)dataMemory[adr + i] << std::endl;
 			} else {
-				std::cout << "unsupported operation" << adr << "!!" << std::endl;
+				std::cout << "unsupported operation at: 0x" << std::hex << adr << "!!" << std::endl;
 			}
 		} else {
 			trans.set_response_status(tlm::TLM_BURST_ERROR_RESPONSE);
-			std::cout << "error an address " << adr << "!!" << std::endl;
+			std::cout << "error at address: 0x" << std::hex << adr << "!!" << std::endl;
 			return;
 		}
 	}
