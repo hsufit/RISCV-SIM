@@ -569,7 +569,7 @@ void EXECUTOR::BEQ_E()
 	auto offset = instruction_decoder->get_imm_b();
 
 	auto addr = register_file->get_pc() +
-	            (register_file->get_value_integer(rs1) == register_file->get_value_integer(rs1) ?
+	            (register_file->get_value_integer(rs1) == register_file->get_value_integer(rs2) ?
 	             offset : 4);
 	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
@@ -592,7 +592,7 @@ void EXECUTOR::BNE_E()
 	auto offset = instruction_decoder->get_imm_b();
 
 	auto addr = register_file->get_pc() +
-	            (register_file->get_value_integer(rs1) != register_file->get_value_integer(rs1) ?
+	            (register_file->get_value_integer(rs1) != register_file->get_value_integer(rs2) ?
 	             offset : 4);
 	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
@@ -615,7 +615,7 @@ void EXECUTOR::BLT_E()
 	auto offset = instruction_decoder->get_imm_b();
 
 	auto addr = register_file->get_pc() +
-	            (register_file->get_value_integer(rs1) < register_file->get_value_integer(rs1) ?
+	            (register_file->get_value_integer(rs1) < register_file->get_value_integer(rs2) ?
 	             offset : 4);
 	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
@@ -638,7 +638,7 @@ void EXECUTOR::BGE_E()
 	auto offset = instruction_decoder->get_imm_b();
 
 	auto addr = register_file->get_pc() +
-	            (register_file->get_value_integer(rs1) >= register_file->get_value_integer(rs1) ?
+	            (register_file->get_value_integer(rs1) >= register_file->get_value_integer(rs2) ?
 	             offset : 4);
 	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
@@ -661,7 +661,7 @@ void EXECUTOR::BLTU_E()
 	auto offset = instruction_decoder->get_imm_b();
 
 	auto addr = register_file->get_pc() +
-	            ((uint32_t) register_file->get_value_integer(rs1) < (uint32_t) register_file->get_value_integer(rs1) ?
+	            ((uint32_t) register_file->get_value_integer(rs1) < (uint32_t) register_file->get_value_integer(rs2) ?
 	             offset : 4);
 	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
@@ -684,7 +684,7 @@ void EXECUTOR::BGEU_E()
 	auto offset = instruction_decoder->get_imm_b();
 
 	auto addr = register_file->get_pc() +
-	            ((uint32_t) register_file->get_value_integer(rs1) >= (uint32_t) register_file->get_value_integer(rs1) ?
+	            ((uint32_t) register_file->get_value_integer(rs1) >= (uint32_t) register_file->get_value_integer(rs2) ?
 	             offset : 4);
 	if(!isAlignment(addr, INSTRUCTION_ALIGNMENT)) {
 		cpu->raise_exception(CPU_INTERFACE::INSTRUCTION_ADDRESS_MISALIGNED_EXCEPTION_CAUSE);
