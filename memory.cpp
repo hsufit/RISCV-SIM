@@ -118,10 +118,10 @@ void MEMORY::b_transport(tlm::tlm_generic_payload &trans, sc_core::sc_time &dela
 		if(adr < dataMemory.size()) {
 			if(cmd == tlm::TLM_READ_COMMAND) {
 				((char *)ptr)[i] = dataMemory[adr + i];
-				//std::cout << "addr: " << adr + i << "--" << (int)dataMemory[adr + i] << std::endl;
+				//std::cout << "addr: 0x" << std::hex << adr + i << "--" << std::hex << (int)dataMemory[adr + i] << std::endl;
 			} else if(cmd == tlm::TLM_WRITE_COMMAND) {
 				dataMemory[adr + i] = ((char *)ptr)[i];
-				//std::cout << "addr: " << adr + i << "--" << (int)dataMemory[adr + i] << std::endl;
+				//std::cout << "addr: 0x" << std::hex << adr + i << "--" << std::hex << (int)dataMemory[adr + i] << std::endl;
 			} else {
 				std::cout << "unsupported operation at: 0x" << std::hex << adr << "!!" << std::endl;
 			}
