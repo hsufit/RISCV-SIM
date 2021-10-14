@@ -78,11 +78,11 @@ void MEMORY::loadBinaeyFromHex(std::string filePath)
 			}
 			break;
 			case 2: { //Extended segment address
-				extended_address = std::stoul(line.substr(9, 4), nullptr, 16);
+				extended_address = std::stoul(line.substr(9, 4), nullptr, 16) * 16;
 			}
 			break;
 			case 3: { //Start segment address
-				uint32_t code_segment = stoul(line.substr(9, 4), nullptr, 16);
+				uint32_t code_segment = stoul(line.substr(9, 4), nullptr, 16) * 16;
 				program_counter = code_segment + stoul(line.substr(13, 4), nullptr, 16);
 				std::cout << "03 " << "program counter should be: 0x" << std::hex << program_counter << std::endl;
 			}
