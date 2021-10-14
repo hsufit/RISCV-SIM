@@ -2,7 +2,7 @@ CROSS_COMPILE ?= riscv32-unknown-elf-
 CC= $(CROSS_COMPILE)gcc
 CFLAGS = -Wall -I. -O0 -nostdlib -march=rv32i -mabi=ilp32 --entry main
 
-SRC= test
+SRC= hello
 TARGET= binary
 
 export PATH:=/home/user/Desktop/code/rv32i-ilp32-gnu-toolchain/bin:${PATH}
