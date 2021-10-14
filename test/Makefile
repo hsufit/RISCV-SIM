@@ -11,6 +11,10 @@ all: $(addsuffix .o, $(SRC))
 	$(CROSS_COMPILE)objcopy -Oihex $< $(TARGET).hex
 	readelf -a $<
 
+dump: $(addsuffix .o, $(SRC))
+	$(CROSS_COMPILE)objdump -Slz $<
+
+
 %.o: %.c
 	$(CC) $(CFLAGS) $< -o $@
 
