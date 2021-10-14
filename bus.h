@@ -10,6 +10,10 @@
 #define INC_BUS_H_
 class BUS: public ADDRESS_SPACE_INTERFACE, public sc_module
 {
+	enum memoryMapp {
+		MEMORY_BASE = 0x000000,
+		CONSOLE_BASE = 0x400000,
+	};
 public:
 	BUS(sc_module_name name);
 

@@ -30,7 +30,14 @@ void BUS::write(uint32_t addr, uint32_t data, uint32_t size)
 	trans.set_response_status(tlm::TLM_INCOMPLETE_RESPONSE);
 	trans.set_address(addr);
 	sc_core::sc_time delay = sc_core::SC_ZERO_TIME;
-	memory_socket->b_transport(trans, delay);
+	switch (addr) {
+		case CONSOLE_BASE:
+			std::cout << "console: \'" << *reinterpret_cast<unsigned char*>(&data) << "\'" << std::endl;
+			break;
+		default:
+			memory_socket->b_transport(trans, delay);
+			break;
+	}
 }
 
 
