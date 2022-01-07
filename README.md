@@ -2,7 +2,7 @@
 A risc-v simulator based on SystrmC.
 Support RV32I instruction set, and will add more extension in future.
 
-## Prerequest
+## Prerequisites
 SystemC Library, C++ Compiler, RISC-V Cross Compiler
 
 ## How to Use
